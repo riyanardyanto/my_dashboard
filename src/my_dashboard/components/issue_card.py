@@ -1,26 +1,46 @@
+import tkinter as tk
 import uuid
+from ast import List
 from tkinter import Menu
 
-import customtkinter as ctk
-import pandas as pd
-from CTkTable import CTkTable
+import ttkbootstrap as ttk
+from ttkbootstrap.constants import *
+from ttkbootstrap.scrolled import ScrolledFrame
 
-# ----------------------------------------------------------------------
-# Appearance
-# ----------------------------------------------------------------------
-ctk.set_appearance_mode("dark")
-ctk.set_default_color_theme("blue")
+
+def setup_entry_placeholder(entry, placeholder_text):
+    """Attach placeholder text behavior to a ttk Entry."""
+
+    def handle_focus_in(_):
+        if getattr(entry, "_placeholder_active", False):
+            entry.delete(0, "end")
+            entry.configure(foreground="white")
+            entry._placeholder_active = False
+
+    def handle_focus_out(_):
+        if not entry.get():
+            entry.insert(0, placeholder_text)
+            entry.configure(foreground="gray")
+            entry._placeholder_active = True
+
+    entry.insert(0, placeholder_text)
+    entry.configure(foreground="gray")
+    entry._placeholder_active = True
+    entry._placeholder_text = placeholder_text
+    entry.bind("<FocusIn>", handle_focus_in, add="+")
+    entry.bind("<FocusOut>", handle_focus_out, add="+")
 
 
 # ----------------------------------------------------------------------
 # Action Item (klik kanan -> delete)
 # ----------------------------------------------------------------------
-class ActionItem(ctk.CTkFrame):
+class ActionItem(ttk.Frame):
     def __init__(self, master, on_remove=None, **kwargs):
-        super().__init__(master, fg_color="transparent", **kwargs)
+        super().__init__(master, **kwargs)
         self.on_remove = on_remove
 
-        self.entry = ctk.CTkEntry(self, placeholder_text="Tindakan...")
+        self.entry = ttk.Entry(self, bootstyle="info")
+        setup_entry_placeholder(self.entry, "Tindakan...")
         self.entry.pack(side="left", fill="x", expand=True, padx=(20, 0))
 
         # Klik kanan pada entry
@@ -28,7 +48,7 @@ class ActionItem(ctk.CTkFrame):
         self.context_menu = Menu(self, tearoff=0)
         self.context_menu.add_command(label="Delete", command=self.delete_self)
 
-    def show_context_menu(self, event):
+    def show_context_menu(self, event: tk.Event):
         try:
             self.context_menu.tk_popup(event.x_root, event.y_root)
         finally:
@@ -40,49 +60,57 @@ class ActionItem(ctk.CTkFrame):
         self.destroy()
 
     def get_text(self):
+        if getattr(self.entry, "_placeholder_active", False):
+            return ""
         return self.entry.get().strip()
 
 
 # ----------------------------------------------------------------------
 # Detail Item (klik kanan -> delete)
 # ----------------------------------------------------------------------
-class DetailItem(ctk.CTkFrame):
-    def __init__(self, master, on_remove=None, **kwargs):
-        super().__init__(master, fg_color="#333333", corner_radius=8, **kwargs)
+class DetailItem(ttk.Labelframe):
+    def __init__(self, master, on_remove=None, number=None, **kwargs):
+        super().__init__(master, **kwargs)
         self.on_remove = on_remove
-        self.action_items = []
+        self.action_items: List[ActionItem] = []
 
         # Header
-        header = ctk.CTkFrame(self, fg_color="transparent")
-        header.pack(fill="x", padx=15, pady=(8, 5))
+        header = ttk.Frame(self)
+        header.pack(expand=True, fill="x", padx=(0, 0), pady=(0, 10))
 
-        self.textbox = ctk.CTkTextbox(header, height=50)
-        self.textbox.pack(side="left", fill="x", expand=True, padx=(0, 8))
+        self.textbox = ttk.Entry(header, bootstyle="warning", width=51)
+        self.textbox.pack(side="left", fill="x", expand=True, padx=(0, 4), pady=(0, 2))
 
         # Placeholder
         self.placeholder = "Masukkan detail..."
-        self.textbox.insert("0.0", self.placeholder)
-        self.textbox.configure(text_color="#888888")
+        self.textbox.insert(0, self.placeholder)
+        self.textbox.config(foreground="gray")
+        self.textbox._placeholder_active = True
+        self.textbox._placeholder_text = self.placeholder
         self.textbox.bind("<FocusIn>", self.on_focus_in)
         self.textbox.bind("<FocusOut>", self.on_focus_out)
 
         # + Action Button
-        add_btn = ctk.CTkButton(
+        add_btn = ttk.Button(
             header,
             text="+ Action",
-            width=80,
-            fg_color="#ff9900",
-            hover_color="#e68a00",
+            width=8,
+            bootstyle="warning",
             command=self.add_action,
         )
-        add_btn.pack(side="right")
+        add_btn.pack(side="right", padx=(4, 0), pady=(0, 2))
+
+        self.configure(
+            bootstyle="warning",
+            labelwidget=header,
+        )
 
         # Klik kanan pada textbox
         self.textbox.bind("<Button-3>", self.show_context_menu)
 
         # Action container (dengan indentasi)
-        self.action_container = ctk.CTkFrame(self, fg_color="transparent")
-        self.action_container.pack(fill="x", padx=(35, 15), pady=(0, 8))
+        self.action_container = ttk.Frame(self)
+        self.action_container.pack(fill="x", padx=(15, 15), pady=(0, 8))
 
         # Tambah action pertama
         self.add_action()
@@ -91,17 +119,23 @@ class DetailItem(ctk.CTkFrame):
         self.context_menu = Menu(self, tearoff=0)
         self.context_menu.add_command(label="Delete Detail", command=self.delete_self)
 
-    def on_focus_in(self, event):
-        if self.textbox.get("0.0", "end").strip() == self.placeholder:
-            self.textbox.delete("0.0", "end")
-            self.textbox.configure(text_color="#ffffff")
+    def on_focus_in(self, event: tk.Event):
+        if self.textbox.get().strip() == self.placeholder and getattr(
+            self.textbox, "_placeholder_active", False
+        ):
+            self.textbox.delete(0, "end")
+            self.textbox.config(foreground="white")
+            self.textbox._placeholder_active = False
 
-    def on_focus_out(self, event):
-        if not self.textbox.get("0.0", "end").strip():
-            self.textbox.insert("0.0", self.placeholder)
-            self.textbox.configure(text_color="#888888")
+    def on_focus_out(self, event: tk.Event):
+        if not self.textbox.get().strip():
+            self.textbox.insert(0, self.placeholder)
+            self.textbox.config(foreground="gray")
+            self.textbox._placeholder_active = True
+        else:
+            self.textbox._placeholder_active = False
 
-    def show_context_menu(self, event):
+    def show_context_menu(self, event: tk.Event):
         try:
             self.context_menu.tk_popup(event.x_root, event.y_root)
         finally:
@@ -111,6 +145,7 @@ class DetailItem(ctk.CTkFrame):
         item = ActionItem(self.action_container, on_remove=self.remove_action)
         item.pack(fill="x", pady=2)
         self.action_items.append(item)
+        item.entry.focus_set()
 
     def remove_action(self, item):
         if item in self.action_items:
@@ -122,9 +157,10 @@ class DetailItem(ctk.CTkFrame):
         self.destroy()
 
     def get_data(self):
-        detail_text = self.textbox.get("0.0", "end").strip()
-        if detail_text == self.placeholder:
+        if getattr(self.textbox, "_placeholder_active", False):
             detail_text = ""
+        else:
+            detail_text = self.textbox.get().strip()
         actions = [a.get_text() for a in self.action_items if a.get_text()]
         return {"detail": detail_text, "actions": actions} if detail_text else None
 
@@ -132,68 +168,57 @@ class DetailItem(ctk.CTkFrame):
 # ----------------------------------------------------------------------
 # Issue Card
 # ----------------------------------------------------------------------
-class IssueCard(ctk.CTkFrame):
+class IssueCard(ttk.LabelFrame):
     def __init__(self, master, on_delete=None, **kwargs):
-        super().__init__(
-            master,
-            corner_radius=12,
-            fg_color="#2b2b2b",
-            border_width=2,
-            border_color="#3a3a3a",
-            **kwargs,
-        )
+        super().__init__(master, **kwargs)
         self.card_id = str(uuid.uuid4())
         self.on_delete = on_delete
-        self.detail_items = []
+        self.detail_items: List[DetailItem] = []
 
         # Issue Row
-        issue_frame = ctk.CTkFrame(self, fg_color="transparent")
-        issue_frame.pack(fill="x", padx=15, pady=(15, 8))
+        issue_frame = ttk.Frame(self)
+        issue_frame.pack(fill="x", padx=0, pady=(0, 0))
 
-        ctk.CTkLabel(issue_frame, text="Issue:", width=60, anchor="w").pack(side="left")
-        self.issue_entry = ctk.CTkEntry(
-            issue_frame, placeholder_text="Masukkan issue..."
+        # ttk.Label(issue_frame, text="Issue:", width=8, anchor="w").pack(
+        #     side="left", padx=(5, 5)
+        # )
+        self.issue_entry = ttk.Entry(issue_frame, bootstyle="success", width=55)
+        setup_entry_placeholder(self.issue_entry, "Masukkan issue...")
+        self.issue_entry.pack(
+            side="left", fill="x", expand=True, padx=(0, 4), pady=(0, 0)
         )
-        self.issue_entry.pack(side="left", fill="x", expand=True, padx=(5, 8))
 
         # + Detail Button
-        add_detail_btn = ctk.CTkButton(
+        add_detail_btn = ttk.Button(
             issue_frame,
             text="+ Detail",
-            width=80,
-            fg_color="#00b300",
-            hover_color="#009900",
+            width=8,
+            bootstyle="success",
             command=self.add_detail_item,
         )
-        add_detail_btn.pack(side="right")
+        add_detail_btn.pack(side="right", padx=(4, 0), pady=(0, 0))
+
+        # Style untuk card
+        self.configure(
+            bootstyle="success",
+            labelwidget=issue_frame,
+        )
 
         # Detail Container
-        self.detail_container = ctk.CTkFrame(self, fg_color="transparent")
-        self.detail_container.pack(fill="x", padx=15, pady=(0, 10))
+        self.detail_container = ttk.Frame(
+            self,
+        )
+        self.detail_container.pack(fill="x", padx=(25, 10), pady=(0, 0))
 
         # Tambah detail pertama
         self.add_detail_item()
-
-        # Hapus Card Button
-        del_btn = ctk.CTkButton(
-            self,
-            text="Hapus Card",
-            width=100,
-            fg_color="transparent",
-            border_width=2,
-            border_color="#ff4444",
-            text_color="#ff4444",
-            hover_color="#ff4444",
-            command=self.delete_card,
-        )
-        del_btn.pack(anchor="e", padx=15, pady=(0, 12))
 
         # Klik kanan pada card → hapus card
         self.bind("<Button-3>", self.show_card_menu)
         self.card_menu = Menu(self, tearoff=0)
         self.card_menu.add_command(label="Delete Card", command=self.delete_card)
 
-    def show_card_menu(self, event):
+    def show_card_menu(self, event: tk.Event):
         # Cek apakah klik di area kosong (bukan widget lain)
         widget = event.widget
         if widget in (self, self.detail_container):
@@ -203,9 +228,14 @@ class IssueCard(ctk.CTkFrame):
                 self.card_menu.grab_release()
 
     def add_detail_item(self):
-        item = DetailItem(self.detail_container, on_remove=self.remove_detail_item)
+        item = DetailItem(
+            self.detail_container,
+            on_remove=self.remove_detail_item,
+            number=len(self.detail_items) + 1,
+        )
         item.pack(fill="x", pady=(3, 0))
         self.detail_items.append(item)
+        item.textbox.focus_set()
 
     def remove_detail_item(self, item):
         if item in self.detail_items:
@@ -216,8 +246,18 @@ class IssueCard(ctk.CTkFrame):
             self.on_delete(self.card_id)
         self.destroy()
 
+    def set_issue(self, issue_text: str):
+        """Populate the issue entry without triggering placeholder state."""
+        self.issue_entry.delete(0, "end")
+        self.issue_entry.insert(0, issue_text)
+        self.issue_entry.configure(foreground="white")
+        self.issue_entry._placeholder_active = False
+
     def get_data(self):
-        issue = self.issue_entry.get().strip()
+        if getattr(self.issue_entry, "_placeholder_active", False):
+            issue = ""
+        else:
+            issue = self.issue_entry.get().strip()
         details = [item.get_data() for item in self.detail_items if item.get_data()]
         return (
             {"id": self.card_id, "issue": issue, "details": details}
@@ -229,70 +269,54 @@ class IssueCard(ctk.CTkFrame):
 # ----------------------------------------------------------------------
 # MAIN APP
 # ----------------------------------------------------------------------
-class App(ctk.CTk):
+class App(ttk.Window):
     def __init__(self):
-        super().__init__()
+        super().__init__(themename="darkly")
         self.title("Issue Tracker – Clean Layout")
         self.geometry("820x880")
         self.minsize(720, 600)
 
         # Header
-        header = ctk.CTkFrame(self, fg_color="transparent")
+        header = ttk.Frame(self)
         header.pack(fill="x", padx=20, pady=(20, 10))
-        ctk.CTkLabel(
-            header, text="Issue Tracker", font=ctk.CTkFont(size=20, weight="bold")
+        ttk.Label(
+            header,
+            text="Issue Tracker",
+            font=("", 16, "bold"),
+            bootstyle="inverse-dark",
         ).pack(side="left")
 
         # Buttons
-        btn_frame = ctk.CTkFrame(self, fg_color="transparent")
+        btn_frame = ttk.Frame(self)
         btn_frame.pack(fill="x", padx=20, pady=10)
 
-        ctk.CTkButton(
+        ttk.Button(
             btn_frame,
             text="+ Tambah Card",
             command=self.add_new_card,
-            width=150,
-            fg_color="#00b300",
-            hover_color="#009900",
+            width=15,
+            bootstyle="success",
         ).pack(side="left")
 
-        ctk.CTkButton(
-            btn_frame, text="Tampilkan Data", command=self.show_all_data, width=150
+        ttk.Button(
+            btn_frame,
+            text="Tampilkan Data",
+            command=self.show_all_data,
+            width=15,
+            bootstyle="primary",
         ).pack(side="right")
 
         # Scrollable
-        self.scrollable = ctk.CTkScrollableFrame(self, fg_color="transparent")
+        self.scrollable = ScrolledFrame(self, autohide=True)
         self.scrollable.pack(fill="both", expand=True, padx=20, pady=(0, 20))
+        self.scrollable_frame = self.scrollable
 
         self.cards = {}
-        self.load_data_and_create_table()
         self.add_new_card()
 
-    def load_data_and_create_table(self):
-        df = pd.read_csv("dh.csv")
-        df_table = df[["DESCRIPTION", "STATUS", "DURATION TO FIX"]].rename(
-            columns={
-                "DESCRIPTION": "issue",
-                "STATUS": "status",
-                "DURATION TO FIX": "durasi",
-            }
-        )
-        df_table = df_table.fillna("")  # handle NaN
-        values = [["Issue", "Status", "Durasi"]] + df_table.values.tolist()
-        self.table = CTkTable(
-            self.scrollable,
-            row=len(values),
-            column=3,
-            values=values,
-            hover=True,
-            hover_color="#444444",
-        )
-        self.table.pack(fill="x", pady=10, padx=5)
-        self.table.bind("<Double-Button-1>", self.on_table_double_click)
-
     def add_new_card(self):
-        card = IssueCard(self.scrollable, on_delete=self.remove_card)
-        card.pack(fill="x", pady=10, padx=5)
+        card = IssueCard(self.scrollable_frame, on_delete=self.remove_card)
+        card.pack(fill="x", pady=10, padx=5, ipadx=5, ipady=5)
         self.cards[card.card_id] = card
 
     def remove_card(self, card_id):
@@ -317,19 +341,6 @@ class App(ctk.CTk):
                     print(f"      {a_idx}. {action}")
             print("-" * 70)
         print(f"Total Card: {len([c for c in self.cards.values() if c.get_data()])}\n")
-
-    def on_table_double_click(self, event):
-        row_data = self.table.get_selected_row()
-        if row_data:
-            print(row_data)
-            # issue = row_data[0]
-            # self.add_card_with_issue(issue)
-
-    def add_card_with_issue(self, issue):
-        card = IssueCard(self.scrollable, on_delete=self.remove_card)
-        card.issue_entry.insert(0, issue)
-        card.pack(fill="x", pady=10, padx=5)
-        self.cards[card.card_id] = card
 
 
 if __name__ == "__main__":
