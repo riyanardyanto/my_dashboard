@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import tkinter as tk
-from tkinter import DISABLED, NORMAL, RIGHT, S, messagebox
+from tkinter import DISABLED, NORMAL, messagebox
 from typing import Optional, Set
 
 import httpx
@@ -12,13 +12,8 @@ import qrcode
 import ttkbootstrap as ttk
 from async_tkinter_loop import async_handler
 from PIL import ImageTk
-from ttkbootstrap.scrolled import ScrolledFrame
-from ttkbootstrap.tableview import Tableview
 from ttkbootstrap.toast import ToastNotification
 
-from ..components.editble_tableview import EditableTableView
-from ..components.issue_card import IssueCard
-from ..components.sidebar import Sidebar
 from ..components.target_editor import TargetEditor
 from ..services.achievement_service import (
     compute_row_updates,
@@ -30,6 +25,7 @@ from ..services.spa_service import SpaScraper
 from ..utils.constants import HEADERS, NTLM_AUTH
 from ..utils.csvhandle import get_targets_file_path
 from ..utils.helpers import read_config, resource_path
+from .dashboard_view import DashboardView
 
 
 class App(ttk.Window):
@@ -44,21 +40,28 @@ class App(ttk.Window):
         self.data_config = read_config()
 
         self.selected_shift = tk.StringVar()
-        self.progressbar = None
-        self.time_period = None
-
         self._active_toasts: Set[ToastNotification] = set()
         self.protocol("WM_DELETE_WINDOW", self._on_close)
 
         self.spa_scraper = SpaScraper("spa.html")
         self.target_editor: Optional[TargetEditor] = None
         self.data_window: Optional[ttk.Toplevel] = None
+        self.view = DashboardView(self)
+        self.sidebar = self.view.sidebar
+        self.progressbar = self.view.progressbar
+        self.time_period = self.view.time_period
+        self.issue_table = self.view.issue_table
+        self.achieve_table = self.view.achieve_table
+        self.achievement_frame = self.view.achievement_frame
+        self.header_frame = self.view.header_frame
+        self.check_table = self.view.check_table
 
-        self._build_layout()
+        self.view.configure_card_actions(
+            on_add_card=self.add_new_card,
+            on_show_cards=self.show_all_data,
+            on_clear_cards=self.clear_data_cards,
+        )
 
-    def _build_layout(self):
-        self.sidebar = Sidebar(self)
-        self.sidebar.pack(side="left", fill="y")
         self.sidebar.btn_target.configure(command=self.show_target_editor)
         self.sidebar.btn_get_data.configure(command=self.get_data)
         self.sidebar.btn_result.configure(
@@ -66,133 +69,12 @@ class App(ttk.Window):
         )
         self.sidebar.btn_save.configure(command=self.save_data_cards_to_csv)
 
-        self.sidebar.lu.configure(
-            values=sorted(self.data_config.get("DEFAULT", "link_up").split(","))
-        )
-        self.sidebar.lu.current(0)
+        link_up_values = sorted(self.data_config.get("DEFAULT", "link_up").split(","))
+        self.sidebar.lu.configure(values=link_up_values)
+        if link_up_values:
+            self.sidebar.lu.current(0)
 
-        self.main_view = ttk.Frame(self)
-        self.main_view.pack(side="left", fill="both", expand=True)
-
-        self.header_top = ttk.Frame(self.main_view)
-        self.header_top.pack(fill="x", expand=False, padx=10, pady=(5, 0))
-
-        self.progressbar = ttk.Progressbar(
-            self.header_top,
-            mode="indeterminate",
-            style="success.Striped.Horizontal.TProgressbar",
-        )
-        self.progressbar.pack(
-            side="left", expand=True, fill="x", padx=(10, 0), pady=(0, 0)
-        )
-
-        self.time_period = ttk.Label(
-            self.header_top,
-            text="",
-            font=("", 10),
-            bootstyle="inverse-dark",
-            justify="right",
-        )
-        self.time_period.pack(padx=(5, 0), pady=(0, 0), fill="none", side=RIGHT)
-
-        self.main_content = ttk.Frame(self.main_view)
-        self.main_content.pack(fill="both", expand=True, padx=10, pady=(0, 10))
-
-        self.left_frame = ttk.Frame(self.main_content, width=200)
-        self.left_frame.pack(side="left", fill="y")
-
-        self.issue_table = Tableview(
-            self.left_frame,
-            coldata=["Line", "Issue", "Stops", "Downtime"],
-            rowdata=[],
-            autofit=True,
-            searchable=True,
-        )
-        self.issue_table.pack(fill="both", expand=True, padx=10, pady=10)
         self.issue_table.view.bind("<Double-1>", self.on_table_double_click)
-
-        self.right_frame = ttk.Frame(self.main_content)
-        self.right_frame.pack(side="right", fill="both", expand=True)
-
-        self.header_frame = ttk.Frame(self.right_frame)
-        self.header_frame.pack(fill="x", padx=(10, 0), pady=(15, 0))
-
-        self.achievement_frame = ttk.Labelframe(self.header_frame)
-        self.achievement_frame.pack(
-            side="left", fill="x", expand=False, padx=(0, 10), pady=0
-        )
-
-        coldata = [
-            ("Metrik", "w"),
-            ("Target", "c"),
-            ("Aktual", "c"),
-        ]
-        rowdata = [
-            ("STOP", 3, 0),
-            ("PR", 85, 0),
-            ("MTBF", 150, 0),
-            ("UPDT", 4, 0),
-            ("PDT", 8, 0),
-            ("NATR", 4, 0),
-        ]
-
-        self.achieve_table = EditableTableView(
-            master=self.achievement_frame,
-            coldata=coldata,
-            rowdata=rowdata,
-            editable_columns=[1, 2],
-            row_height=30,
-            paginated=False,
-            bootstyle=ttk.SUCCESS,
-            autoalign=True,
-            autofit=True,
-            height=6,
-        )
-        self.achieve_table.pack(
-            side="left", fill="both", expand=True, padx=10, pady=(5, 10)
-        )
-
-        btn_frame = ttk.Frame(self.header_frame)
-        btn_frame.pack(side="right", fill="both", padx=(0, 10), pady=0)
-
-        ttk.Button(
-            btn_frame,
-            text="+ Tambah Card",
-            command=self.add_new_card,
-            width=15,
-            bootstyle="success",
-        ).pack(side="bottom", anchor=S, padx=(0, 0), pady=(0, 5))
-
-        self.check_table = ttk.Checkbutton(
-            btn_frame,
-            text="Table Data",
-            width=15,
-            bootstyle="primary",
-        )
-        self.check_table.pack(side="bottom", anchor=S, padx=(0, 0), pady=(0, 25))
-
-        ttk.Button(
-            btn_frame,
-            text="Clear Cards",
-            command=self.clear_data_cards,
-            width=15,
-            bootstyle="primary",
-        ).pack(side="bottom", anchor=S, padx=(0, 0), pady=(0, 5))
-
-        ttk.Button(
-            btn_frame,
-            text="Tampilkan Data",
-            command=self.show_all_data,
-            width=15,
-            bootstyle="primary",
-        ).pack(side="bottom", anchor=S, padx=(0, 0), pady=(0, 5))
-
-        self.scrollable = ScrolledFrame(self.right_frame, autohide=True)
-        self.scrollable.pack(fill="both", expand=True, padx=5, pady=(0, 20))
-        self.scrollable_frame = self.scrollable
-        self.cards = {}
-        self.data_window = None
-        self.add_new_card()
 
         self._initialize_issue_table(self.spa_scraper)
 
@@ -208,16 +90,10 @@ class App(ttk.Window):
         self.issue_table.reset_table()
 
     def add_new_card(self, issue_text: Optional[str] = None):
-        card = IssueCard(self.scrollable_frame, on_delete=self.remove_card)
-        card.pack(fill="x", pady=10, padx=5, ipadx=5, ipady=5)
-        self.cards[card.card_id] = card
-        if issue_text:
-            card.set_issue(issue_text)
-        card.issue_entry.focus_set()
+        return self.view.add_card(issue_text)
 
     def remove_card(self, card_id):
-        if card_id in self.cards:
-            del self.cards[card_id]
+        self.view.remove_card(card_id)
 
     def on_table_double_click(self, event: tk.Event):
         row_id = event.widget.identify_row(event.y)
@@ -238,8 +114,7 @@ class App(ttk.Window):
         self.data_window = None
 
     def show_all_data(self):
-        card_entries = [card.get_data() for card in self.cards.values()]
-        card_entries = [entry for entry in card_entries if entry]
+        card_entries = self.view.get_card_entries()
 
         if not card_entries:
             messagebox.showinfo("Data Kosong", "Tidak ada data card untuk ditampilkan.")
@@ -486,7 +361,7 @@ class App(ttk.Window):
 
     @async_handler
     async def save_data_cards_to_csv(self):
-        card_rows = build_card_rows(card.get_data() for card in self.cards.values())
+        card_rows = build_card_rows(self.view.iter_card_data())
 
         if not card_rows:
             messagebox.showinfo(
@@ -507,7 +382,7 @@ class App(ttk.Window):
         )
 
     def clear_data_cards(self):
-        if not self.cards:
+        if not self.view.cards:
             messagebox.showinfo("Informasi", "Tidak ada card untuk dihapus.")
             return
 
@@ -516,11 +391,7 @@ class App(ttk.Window):
         ):
             return
 
-        for card in list(self.cards.values()):
-            card.destroy()
-        self.cards.clear()
-
-        self.add_new_card()
+        self.view.clear_cards()
 
     def show_target_editor(self):
         if self.target_editor and self.target_editor.winfo_exists():
