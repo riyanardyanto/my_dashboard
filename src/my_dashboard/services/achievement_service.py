@@ -1,16 +1,20 @@
 """Business logic for achievement target updates."""
+
 from __future__ import annotations
 
-from typing import Iterable, Sequence
+from typing import Iterable, Mapping, Sequence
 
 import pandas as pd
 
-from .spa_service import SpaScraper
 from ..utils.csvhandle import get_targets_file_path
 
 
-def load_target_shift(lu_value: str, func_location: str, shift_number: int) -> pd.Series:
-    target_path = get_targets_file_path(lu_value.strip("LU"), func_location=func_location)
+def load_target_shift(
+    lu_value: str, func_location: str, shift_number: int
+) -> pd.Series:
+    target_path = get_targets_file_path(
+        lu_value.strip("LU"), func_location=func_location
+    )
     target_df = pd.read_csv(target_path)
     shift_column = f"Shift {shift_number}"
     if shift_column not in target_df.columns:
@@ -18,15 +22,29 @@ def load_target_shift(lu_value: str, func_location: str, shift_number: int) -> p
     return target_df[shift_column].astype(str).str.replace("%", "")
 
 
+def _normalize_metric_value(value: object) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, float) and pd.isna(value):
+        return ""
+    return str(value)
+
+
 def fetch_actual_metrics(
-    scraper: SpaScraper, metric_order: Sequence[str]
+    data_losses: pd.DataFrame | Mapping[str, object], metric_order: Sequence[str]
 ) -> tuple[list[str], dict[str, object]]:
-    actual_shift = scraper.get_actual_data_metric()
+    if isinstance(data_losses, pd.DataFrame):
+        if data_losses.empty:
+            data_actual: dict[str, object] = {}
+        else:
+            data_actual = data_losses.iloc[0].to_dict()
+    else:
+        data_actual = dict(data_losses)
+
     values = [
-        "" if actual_shift.get(metric) is None else actual_shift[metric]
-        for metric in metric_order
+        _normalize_metric_value(data_actual.get(metric)) for metric in metric_order
     ]
-    return values, actual_shift
+    return values, data_actual
 
 
 def compute_row_updates(

@@ -1,0 +1,2694 @@
+
+<!-- saved from url=(0065)http://ots.app.pmi/db.aspx?table=SPA_NormPeriodLossTree&act=query -->
+<html xmlns:v="urn:schemas-microsoft-com:vml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body onbeforeunload="Show_Wait2()" bgcolor="#ffffff" text="#000000" topmargin="0" leftmargin="0" bgproperties="fixed" link="#003399" vlink="#003399" alink="#003399"><div id="wait2" style="position:absolute; left:400px; top:200px; left:650px; width:200px; height:70px; z-index:30;display:none;"><center><img src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/wait.gif" style="position:relative;"></center></div>
+
+
+
+
+<link rel="stylesheet" href="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/aspdb.css" type="text/css">
+<link rel="stylesheet" href="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/wdab_pmi.css" type="text/css">
+<link rel="stylesheet" href="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/wdab_doc.css" type="text/css">
+
+
+<style type="text/css">
+BODY
+{
+    BACKGROUND-COLOR: #FFFFFF;
+    FONT-FAMILY: Arial;	
+    MARGIN: 0px
+}
+	
+.TitleWhite
+{
+    COLOR: #ffffff;
+    FONT-SIZE: 12px;
+    FONT-STYLE: normal;
+    FONT-WEIGHT: bold
+}
+
+div.QI_frame{
+	position:absolute;
+	border-style:solid;	
+	border-width:0px;
+	border-top-style:dashed;
+	border-bottom-style:dashed;
+}
+
+
+div.QI_norm{
+	border-style:solid;	
+	border-width:0px;
+}
+
+div.QI_spread{
+	border-width:1px;
+	border-style:solid;	
+	border-color:gray;
+	border-top-width:0px;
+	border-bottom-width:0px;
+	background-image:url(./wdab_images/dashedline.gif);	
+	border-top-style:dashed;
+	border-bottom-style:dashed
+}
+
+div.QI_CI{
+	border-width:1px;
+	border-style:solid;	
+	border-color:black;
+	border-top-width:0px;
+	border-bottom-width:0px;
+	background-image:url(./wdab_images/dashedblack.gif);	
+	border-top-style:dashed;
+	border-bottom-style:dashed;
+}
+
+.QI_DESC_NORM
+{
+	border-width:0;
+	font-size:9px;
+	color:#000000;	
+	background-color:transparent
+}
+
+.QI_DESC_ACTIVE
+{
+	border-width:0;
+	font-size:9px;
+	color:#0000FF;	
+	background-color:#FFFFCC	
+}
+
+A:hover
+{
+    BACKGROUND-COLOR:#ffeebb;COLOR: #000000
+}
+v\:* { behavior: url(#default#VML); }
+</style>
+
+<title>Loss tree (Primary Monitoring Analysis Tool)</title>
+
+<!-- Custom header definitions -->
+<meta http-equiv="X-UA-compatible" content="IE=EmulateIE8">
+
+<link rel="shortcut icon" type="image/ico" href="http://ots.app.pmi/wdab_images/primat.ico">
+
+<style type="text/css">
+BODY
+{
+    BACKGROUND-COLOR: #FFFFFF;
+    FONT-FAMILY: Arial;	
+    MARGIN: 0px
+}
+</style>
+
+
+<script language="javaScript">
+
+</script>
+
+
+
+
+
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" topmargin="0" leftmargin="0" marginwidth="0" marginheight="0">
+			<tbody><tr>
+				<td bgcolor="#ffffff" width="100%">
+					<table height="20" width="100%" border="0" cellspacing="0" cellpadding="0" align="left">
+						<tbody><tr>
+
+							<td bgcolor="#ffffff" width="30">
+							&nbsp;&nbsp;&nbsp;
+							</td>
+
+							<td bgcolor="#ffffff" width="100%" align="left" valign="center" class="doctoptitle">
+							Loss tree - SPA PRD
+							</td>
+							
+							<td bgcolor="#ffffff" valign="center">
+							
+
+	<img border="0" src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/PMIE_text.gif">&nbsp;&nbsp;&nbsp;
+
+
+							</td>
+							<td bgcolor="#ffffff" nowrap="" valign="center">
+							
+							</td>
+						</tr>
+					</tbody></table>
+				</td>
+			</tr>
+			<tr>
+				<td bgcolor="#ffffff" width="100%" background="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/icon_strip.jpg" height="8">
+				</td>
+			</tr>
+			<tr>
+				<td width="100%" height="2">
+				</td>
+			</tr>
+		</tbody></table>
+
+		<script language="JavaScript">
+			// Change the title of the current document
+			document.title = "Loss tree (Primary Monitoring Analysis Tool)" ;
+		</script>
+
+
+<table border="1" cellspacing="0"><tbody><tr><td class="navitabspc">&nbsp;</td><td class="navitablink" nowrap=""><a class="link" href="http://ots.app.pmi/db.aspx?table=asp_DocOut&amp;act=query&amp;db_pkIdentifier=SPA_root">SPA </a><br></td><td class="navitabspc">&nbsp;</td><td class="navitablink" nowrap=""><a class="link" href="http://ots.app.pmi/db.aspx?table=SPA_Line_Status&amp;eoa=x">Roll-out status </a><br></td><td class="navitabspc">&nbsp;</td><td class="navitablink" nowrap=""><a class="link" href="http://ots.app.pmi/db.aspx?table=SPA_Line_Overview&amp;eoa=x">Lines </a><br></td><td class="navitabspc">&nbsp;</td><td class="navitabspc">&nbsp;</td><td class="navitablink" nowrap=""><a class="link" href="http://ots.app.pmi/db.aspx?table=SPA_LiveCockpit&amp;eoa=x&amp;act=query&amp;db_Line=ID01-SE-CP-L021&amp;db_Language=OEM">Life </a><br></td><td class="navitabspc">&nbsp;</td><td class="navitablink" nowrap=""><a class="link" href="http://ots.app.pmi/db.aspx?table=SPA_ShiftPO_Overview&amp;eoa=x&amp;act=query&amp;db_Line=ID01-SE-CP-L021&amp;db_Language=OEM">Shifts </a><br></td><td class="navitabspc">&nbsp;</td><td class="navitablink" nowrap=""><a class="link" href="http://ots.app.pmi/db.aspx?table=SPA_Segment_Overview&amp;eoa=x&amp;act=query&amp;db_Line=ID01-SE-CP-L021&amp;db_Language=OEM">Days </a><br></td><td class="navitabspc">&nbsp;</td><td class="navitablink" nowrap=""><a class="link" href="http://ots.app.pmi/db.aspx?table=SPA_Week_Overview&amp;eoa=x&amp;act=query&amp;db_Line=ID01-SE-CP-L021&amp;db_Language=OEM">Weeks </a><br></td><td class="navitabspc">&nbsp;</td><td class="navitablink" nowrap=""><a class="link" href="http://ots.app.pmi/db.aspx?table=SPA_Month_Overview&amp;eoa=x&amp;act=query&amp;db_Line=ID01-SE-CP-L021&amp;db_Language=OEM">Months </a><br></td><td class="navitabspc">&nbsp;</td><td class="navitabspc">&nbsp;</td><td class="navitabactive" nowrap=""><a class="naviactive" href="http://ots.app.pmi/db.aspx?table=SPA_NormPeriodLossTree&amp;act=query&amp;db_Normalize=0&amp;db_Language=OEM&amp;eoa=x&amp;db_Line=ID01-SE-CP-L021&amp;db_SegmentDateMin=2025-11-05&amp;db_PeriodTime=10080&amp;db_LongStopDetails=3&amp;db_ReasonCNT=30">Loss tree </a><br></td><td class="navitabspc">&nbsp;</td><td class="navitablink" nowrap=""><a class="link" href="http://ots.app.pmi/db.aspx?table=SPA_NormPeriodLossTree&amp;act=query&amp;db_Normalize=0&amp;db_Language=Local&amp;eoa=x&amp;db_Line=ID01-SE-CP-L021&amp;db_SegmentDateMin=2025-11-05&amp;db_PeriodTime=10080&amp;db_LongStopDetails=3&amp;db_ReasonCNT=30">in local language </a><br></td><td class="navitabspc">&nbsp;</td><td class="navitablink" nowrap=""><a class="link" href="http://ots.app.pmi/db.aspx?table=SPA_NormPeriodLossTree&amp;act=query&amp;db_Normalize=1&amp;eoa=x&amp;db_Line=ID01-SE-CP-L021&amp;db_SegmentDateMin=2025-11-05&amp;db_PeriodTime=10080&amp;db_LongStopDetails=3&amp;db_ReasonCNT=30">Normalized Loss tree </a><br></td><td class="navitabspc">&nbsp;</td><td class="navitablink" nowrap=""><a class="link" href="http://ots.app.pmi/db.aspx?table=SPA_NormPeriodLossTree&amp;act=enterquery&amp;eoa=x&amp;db_Line=ID01-SE-CP-L021&amp;db_SegmentDateMin=2025-11-05&amp;db_PeriodTime=10080&amp;db_LongStopDetails=3&amp;db_ReasonCNT=30">Loss tree query </a><br></td><td class="navitabspc">&nbsp;</td><td class="navitablink" nowrap=""><a class="link" href="http://ots.app.pmi/db.aspx?table=sp_PeriodEquipmentData&amp;act=query&amp;eoa=x&amp;db_Line=ID01-SE-CP-L021&amp;db_SegmentDateMin=2025-11-05&amp;db_PeriodTime=10080&amp;db_LongStopDetails=3&amp;db_ReasonCNT=30">Stop per machine </a><br></td><td class="navitabspc">&nbsp;</td><td class="navitablink" nowrap=""><a class="link" href="http://ots.app.pmi/db.aspx?table=sp_PeriodEquipmentData&amp;act=enterquery&amp;eoa=x&amp;db_Line=ID01-SE-CP-L021&amp;db_SegmentDateMin=2025-11-05&amp;db_PeriodTime=10080&amp;db_LongStopDetails=3&amp;db_ReasonCNT=30">Stops per machine query </a><br></td><td class="navitabspc">&nbsp;</td><td class="navitablink" nowrap=""><a class="link" href="http://ots.app.pmi/db.aspx?table=CreateSRQ&amp;db_Line=ID01-SE-CP-L021&amp;db_SegmentDateMin=2025-11-05&amp;db_PeriodTime=10080&amp;db_LongStopDetails=3&amp;db_ReasonCNT=30">Request for Support </a><br></td><td class="navitabspc">&nbsp;</td></tr></tbody></table>
+Stops with "Stops" = 0 Are displayed<style>
+tr:hover{background-color:#f5f5f5}
+</style>
+
+Loss tree for <b> (ID01-SE-CP-L021-PACK) Period: 2025-11-05</b> 
+<table cellspacing="0" cellpadding="2">
+
+<tbody><tr>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td class="doctableheader"><b>Time range</b>
+
+
+</td><td class="doctableheader" colspan="2">Stops</td>
+<td class="doctableheader">Downtime</td>
+<td class="doctableheader" colspan="2">Uptime Loss</td>
+<td class="doctableheader">MTBF</td>
+<td class="doctableheader">MTTR</td>
+<td class="doctableheader" colspan="5">&nbsp;</td>
+<td class="doctableheader"><i>i</i></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+
+</tr>
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #dddddd;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="10"></td><td class="doctext">Calendar time</td></tr></tbody></table>
+</td>
+
+            <td class="docright">1440</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">min</td>
+            <td class="docright"></td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doctext" colspan="5">2025-11-05 06:00 to 2025-11-06 06:00</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">Missing data time</td></tr></tbody></table>
+</td>
+
+            <td class="docright">0</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">min</td>
+            <td class="docright"></td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doctext" colspan="5"></td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">Valid time</td></tr></tbody></table>
+</td>
+
+            <td class="docright">1440</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">min</td>
+            <td class="docright"></td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doctext" colspan="5"></td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">Excluded time</td></tr></tbody></table>
+</td>
+
+            <td class="docright">0</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">min</td>
+            <td class="docright"></td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doctext" colspan="5"><a class="doclink" href="http://ots.app.pmi/db.aspx?table=SPA_ULT&amp;act=query&amp;db_line=ID01-SE-CP-L021&amp;db_FunctionalLocation=ID01-SE-CP-L021-PACK&amp;db_SegmentDateMin=2025-11-05&amp;db_SegmentDateMax=2025-11-05" target="_blank">Loss tree - Wiki</a></td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #dddddd;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="10"></td><td class="doctext">Working time</td></tr></tbody></table>
+</td>
+
+            <td class="docright">1440</td>
+            <td class="docleft" style="border-right:1px dotted #BBBBBB">min</td>
+            <td class="docright">Strat. PR=</td>
+            <td class="docright"><b>67.8</b></td>
+            <td class="docleft" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB"><b>65.4</b></td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB"><b>1.5</b></td>
+            <td class="doctext" colspan="5">Net production:&nbsp;9.564 Mio, &nbsp;Theo. prod. at target speed :&nbsp;14.11 Mio, <a class="doclink" href="http://ots.app.pmi/db.aspx?table=SPA_DetailsTheoProdPO&amp;act=query&amp;db_line=ID01-SE-CP-L021&amp;db_StartTime=2025-11-04%2023:00:03.840&amp;db_EndTime=2025-11-05%2023:00:08.367&amp;db_FunctionalLocation=ID01-SE-CP-L021-PACK&amp;db_SegmentDateMin=2025-11-05&amp;db_SegmentDateMax=2025-11-05" target="_blank">Details by PO</a></td>
+
+
+<td class="doctext"><div id="ds5FormulaDesc" title="" onclick="ds5FormulaDesc.style.display=&#39;none&#39;;dv5FormulaDesc.style.display=&#39;&#39;;"><img border="0" src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/p.gif"><center></center></div><div style="display:none" id="dv5FormulaDesc" onclick="ds5FormulaDesc.style.display=&#39;&#39;;dv5FormulaDesc.style.display=&#39;none&#39;;">Strategic Process Reliability = Net /Theo. prod. at target speed </div></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">Reference run time ( ≈ 20 hours)</td></tr></tbody></table>
+</td>
+
+            <td class="docright">1177</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">min</td>
+            <td class="docright">Uptime=</td>
+            <td class="docright">66.4</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doctext" colspan="5">Theo. prod. at design speed :&nbsp;14.4 Mio, avg design speed of 10000 cig./min</td>
+
+
+<td class="doctext"><div id="ds6FormulaDesc" title="" onclick="ds6FormulaDesc.style.display=&#39;none&#39;;dv6FormulaDesc.style.display=&#39;&#39;;"><img border="0" src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/p.gif"><center></center></div><div style="display:none" id="dv6FormulaDesc" onclick="ds6FormulaDesc.style.display=&#39;&#39;;dv6FormulaDesc.style.display=&#39;none&#39;;">Uptime = Net /Theo. prod. at design speed</div></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">Theo production run time</td></tr></tbody></table>
+</td>
+
+            <td class="docright">976</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">min</td>
+            <td class="docright">Tact. PR=</td>
+            <td class="docright">67.8</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doctext" colspan="5">Availability =97.8%&nbsp; ;&nbsp; Op. Efficiency =  81.1%</td>
+
+
+<td class="doctext"><div id="ds7FormulaDesc" title="" onclick="ds7FormulaDesc.style.display=&#39;none&#39;;dv7FormulaDesc.style.display=&#39;&#39;;"><img border="0" src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/p.gif"><center></center></div><div style="display:none" id="dv7FormulaDesc" onclick="ds7FormulaDesc.style.display=&#39;&#39;;dv7FormulaDesc.style.display=&#39;none&#39;;">Tactical Process Reliability = 100 - Target Rate Loss - Quality Loss - Planned Stop Loss  - Unplanned Stop Loss<br>			 Availability = Run time / (Run time + Unplanned downtime)<br>			 Op. Efficiency : Net /Theo. prod during Run time and Unplanned downtime at target speed</div></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+<tr>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td class="doctableheader"><b>Theo Production by PO</b>
+
+
+</td><td class="doctableheader" colspan="2">Time</td>
+<td class="doctableheader" colspan="3">Design speed</td>
+<td class="doctableheader" colspan="2">Target speed</td>
+<td class="doctableheader" colspan="5">Theo prod</td>
+<td class="doctableheader"><i>i</i></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+
+
+</tr>
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #dddddd;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="10"></td><td class="doctext">101333865 - FA074776.18</td></tr></tbody></table>
+</td>
+
+            <td class="docright">1440</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">min</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="docright">10000</td>
+            <td class="doctext">cig./min</td>
+            <td class="docright">9800.0</td>
+            <td class="doctext">cig./min</td>
+            <td class="doctext" colspan="5">Theo. prod. at Design speed :&nbsp;14.4 Mio</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+<tr>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td class="doctableheader"><b>Line performance</b>
+
+
+</td><td class="doctableheader" colspan="2">Line failures</td>
+<td class="doctableheader">Run time</td>
+<td class="doctableheader" colspan="2">&nbsp;</td>
+<td class="doctableheader">MTBF</td>
+<td class="doctableheader">&nbsp;</td>
+<td class="doctableheader" width="60">Rejects [%]</td>
+<td class="doctableheader" colspan="4">Total line rejects (not refeed)</td>
+<td class="doctableheader"><i>i</i></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+
+
+</tr>
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">Analysis of 5 machines</td></tr></tbody></table>
+</td>
+
+            <td class="docright">115</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">total</td>
+            <td class="docright">1091</td>
+            <td class="doctext" colspan="2"></td>
+            <td class="doccenter">9.49</td>
+            <td class="doctext">min</td>
+            <td class="doccenter">2.42</td>
+            <td class="doctext" colspan="4"><table cellspacing="0" cellpadding="0"><tbody><tr><td class="docright" nowrap="">Total line reject losses=&nbsp;</td><td class="doctext">238.2 k cig.</td></tr></tbody></table></td>
+
+
+<td class="doctext"><div id="ds9FormulaDesc" title="" onclick="ds9FormulaDesc.style.display=&#39;none&#39;;dv9FormulaDesc.style.display=&#39;&#39;;"><img border="0" src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/p.gif"><center></center></div><div style="display:none" id="dv9FormulaDesc" onclick="ds9FormulaDesc.style.display=&#39;&#39;;dv9FormulaDesc.style.display=&#39;none&#39;;">Line MTBF = (Failures from all machines)/(Avg. run time)</div></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+<tr>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td class="doctableheader"><b>Line performance Details</b>
+
+
+</td><td class="doctableheader" colspan="2">Stops</td>
+<td class="doctableheader">Downtime</td>
+<td class="doctableheader" colspan="2">Uptime Loss</td>
+<td class="doctableheader">MTBF</td>
+<td class="doctableheader">MTTR</td>
+<td class="doctableheader" colspan="5">&nbsp;</td>
+<td class="doctableheader"><i>i</i></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+
+</tr>
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220">ID01-SE-CP-L021-MAKE - 19 stops</td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">6</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">26.8</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">MAX tipping break</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">4</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">13.8</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">MAX roll. block jam</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">3</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">15.5</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">SE rod break</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">3</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">5.7</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">SE paper break</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">2</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">6.5</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">MAX turn. Drum choke</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">3.2</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">MAX discharge jam</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220">ID01-SE-CP-L021-PACK - 18 stops</td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">4</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">8.4</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">PACKET GUIDE, DISCHARGE</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">2</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">1.2</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">DISCHARGE PUSHER, DRYING DRUM 2</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">2</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">1.8</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">STOP BUTTON, OPS PANEL hlp_550</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">0.2</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">FOIL EDGE, LEFT</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">9.2</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">REGISTRATION MARK, INNER FRAME</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">0.2</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">BOBBIN NOT PREPARED, RIGHT</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">0.5</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">INNER FRAME TRANSVERSAL TRANSPORT BELT</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">0.2</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">S BLANK MISSING, RIGHT</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">1.5</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">COVER 1, PACKET TRACK</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">0.8</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">PACKET GUIDE, PACKET TRACK</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">0.2</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">DISCHARGE FULL</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">0.2</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">CIG. VANES EMPTY</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">1.7</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">TURRET COVER, LEFT</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220">ID01-SE-CP-L021-WRAP - 46 stops</td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">15</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">31.0</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">STOP BUTTON, OPS PANEL wrapper_751</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">12</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">20.7</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">SKEWED-PACKET DETECTOR</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">7</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">4.6</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">S PACKET DETECTOR</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">2</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">2.9</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">PACKET DETECTOR, EJECTOR</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">2</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">0.5</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">DOOR, TURRET</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">2.2</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">COVER (LEFT), INFEED PUSHER, SHRINKING H</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">5.2</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">PACKET DETECTOR</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">0.3</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">S FILM DETECTOR, RIGHT</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">0.9</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">TEARTAPE TENSION, TENSIONING ARM</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">2.3</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">COVER, INFEED PUSHER</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">0.7</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">S PACKET DETECTOR, STACKING TOWER</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">2.1</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">LIFTER, DISCHARGE</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">1.0</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">UPPER BELT NOT IN LOWER POSITON</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220">ID01-SE-CP-L021-BNDL - 15 stops</td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">4</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">11.1</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">PACKET DETECTOR, INFEED</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">3</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">4.4</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">INFEED PUSHER</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">3</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">4.7</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">TOP FOLDER</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">3</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">2.3</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">FILM DETECTOR, RIGHT</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">2</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">1.2</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">FILM DETECTOR, LEFT</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220">ID01-SE-CP-L021-CASE - 17 stops</td><td class="doctext" nowrap="">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">17</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">12.3</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5">No volume</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+<tr>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td class="doctableheader"><b>Machine Efficiency</b>
+
+
+</td><td class="doctableheader" colspan="2">Stops</td>
+<td class="doctableheader">Downtime</td>
+<td class="doctableheader" colspan="2">Uptime Loss</td>
+<td class="doctableheader">MTBF</td>
+<td class="doctableheader">MTTR</td>
+<td class="doctableheader" colspan="5">&nbsp;</td>
+<td class="doctableheader"><i>i</i></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+
+</tr>
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext"></td></tr></tbody></table>
+</td>
+
+            <td class="docright">26.7</td>
+            <td class="docleft" style="border-right:1px dotted #BBBBBB">min</td>
+            <td class="docright">Equipment=</td>
+            <td class="docright"><b>79.4</b></td>
+            <td class="docleft" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB"><b>62.0</b></td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB"><b>1.4</b></td>
+            <td class="doctext" colspan="5"><table cellspacing="0" cellpadding="0"><tbody><tr><td class="docright" width="70" nowrap="">Planned&nbsp;DT=&nbsp;</td><td class="doctext">236.4 min</td><td class="docright" width="120" nowrap="">External&nbsp;DT&nbsp;=</td><td class="doctext">0 min</td></tr></tbody></table></td>
+
+
+<td class="doctext"><div id="ds48FormulaDesc" title="" onclick="ds48FormulaDesc.style.display=&#39;none&#39;;dv48FormulaDesc.style.display=&#39;&#39;;"><img border="0" src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/p.gif"><center></center></div><div style="display:none" id="dv48FormulaDesc" onclick="ds48FormulaDesc.style.display=&#39;&#39;;dv48FormulaDesc.style.display=&#39;none&#39;;">Equipment Efficiency = Net production /(Theoritical production during running time and internal stops)</div></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+<tr>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td class="doctableheader"><b>Rate loss</b>
+
+
+</td><td class="doctableheader" colspan="2">Stops</td>
+<td class="doctableheader">Downtime</td>
+<td class="doctableheader" colspan="2">Uptime Loss</td>
+<td class="doctableheader">MTBF</td>
+<td class="doctableheader">MTTR</td>
+<td class="doctableheader" colspan="5">&nbsp;</td>
+<td class="doctableheader"><i>i</i></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+
+</tr>
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">Design speed loss</td></tr></tbody></table>
+</td>
+<td style="background-color:#DDDDDD" colspan="2">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">19.5</td>
+            <td class="docright">1.36</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doctext" colspan="5">Total rate loss: 14.75 %</td>
+
+
+<td class="doctext"><div id="ds49FormulaDesc" title="" onclick="ds49FormulaDesc.style.display=&#39;none&#39;;dv49FormulaDesc.style.display=&#39;&#39;;"><img border="0" src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/p.gif"><center></center></div><div style="display:none" id="dv49FormulaDesc" onclick="ds49FormulaDesc.style.display=&#39;&#39;;dv49FormulaDesc.style.display=&#39;none&#39;;">PR-Uptime</div></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #dddddd;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="10"></td><td class="doctext">Target rate loss</td></tr></tbody></table>
+</td>
+<td style="background-color:#DDDDDD" colspan="2">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">192.8</td>
+            <td class="docright">13.4</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doctext" colspan="5">Avg. speed of 8195 vs. avg. running target speed of  9800 cig./min; avg. target speed of  9800 cig./min</td>
+
+
+<td class="doctext"><div id="ds50FormulaDesc" title="" onclick="ds50FormulaDesc.style.display=&#39;none&#39;;dv50FormulaDesc.style.display=&#39;&#39;;"><img border="0" src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/p.gif"><center></center></div><div style="display:none" id="dv50FormulaDesc" onclick="ds50FormulaDesc.style.display=&#39;&#39;;dv50FormulaDesc.style.display=&#39;none&#39;;">(Theo. prod. during run time - Total production )/Theo. prod. at target speed</div></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">Not at Target Rate</td></tr></tbody></table>
+</td>
+<td style="background-color:#DDDDDD" colspan="2">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">173.5</td>
+            <td class="docright">12.0</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doctext" colspan="5">Stable speed of 8302 cig./min (stable run time: 1135 min)</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">Start-up/Ramp-down rate loss</td></tr></tbody></table>
+</td>
+<td style="background-color:#DDDDDD" colspan="2">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">19.3</td>
+            <td class="docright">1.34</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doctext" colspan="5">During ramp-up/down: 5308 cig./min (42 min)</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #dddddd;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="10"></td><td class="doctext">Low speed events ("Touch on Run")</td></tr></tbody></table>
+</td>
+
+            <td class="docright">260</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">total</td>
+            <td class="docright">203</td>
+            <td class="doctext" colspan="2">min</td>
+            <td class="doccenter">4.53</td>
+            <td class="doctext">min</td>
+            <td class="doccenter">1.29</td>
+            <td class="doctext" colspan="4">Number, duration, period and reject rate of run events below target of 9800 cig./min</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+<tr>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td class="doctableheader"><b>Quality Loss</b>
+
+
+</td><td class="doctableheader" colspan="2">Stops</td>
+<td class="doctableheader">Downtime</td>
+<td class="doctableheader" colspan="2">Uptime Loss</td>
+<td class="doctableheader">MTBF</td>
+<td class="doctableheader">MTTR</td>
+<td class="doctableheader" width="60">Rejects [%]</td>
+<td class="doctableheader" colspan="4">&nbsp;</td>
+<td class="doctableheader"><i>i</i></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+
+
+</tr>
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #dddddd;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="10"></td><td class="doctext">Reject losses</td></tr></tbody></table>
+</td>
+<td style="background-color:#DDDDDD" colspan="2">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">8.4</td>
+            <td class="docright">0.581</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.850</td>
+            <td class="doctext" colspan="4">The rejects % includes the downstream machines rejects</td>
+
+
+<td class="doctext"><div id="ds54FormulaDesc" title="" onclick="ds54FormulaDesc.style.display=&#39;none&#39;;dv54FormulaDesc.style.display=&#39;&#39;;"><img border="0" src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/p.gif"><center></center></div><div style="display:none" id="dv54FormulaDesc" onclick="ds54FormulaDesc.style.display=&#39;&#39;;dv54FormulaDesc.style.display=&#39;none&#39;;">OEE Quality loss = (Reference Rejects + Downstream Machines Rejects)/ Theo. prod. at target speed</div></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">Rejects on reference</td></tr></tbody></table>
+</td>
+<td style="background-color:#DDDDDD" colspan="2">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">5.4</td>
+            <td class="docright">0.377</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.551</td>
+            <td class="doctext" colspan="4">53.14 k cig.</td>
+
+
+<td class="doctext"><div id="ds55FormulaDesc" title="" onclick="ds55FormulaDesc.style.display=&#39;none&#39;;dv55FormulaDesc.style.display=&#39;&#39;;"><img border="0" src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/p.gif"><center></center></div><div style="display:none" id="dv55FormulaDesc" onclick="ds55FormulaDesc.style.display=&#39;&#39;;dv55FormulaDesc.style.display=&#39;none&#39;;">Rejects on the reference machine / Theo. prod. at target speed</div></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext">Reject losses during run (incl. low speed  events)</td></tr></tbody></table>
+</td>
+<td style="background-color:#DDDDDD" colspan="2">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">4.2</td>
+            <td class="docright">0.294</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.431</td>
+            <td class="doctext" colspan="4">41.54 k cig.</td>
+
+
+<td class="doctext"><div id="ds56FormulaDesc" title="" onclick="ds56FormulaDesc.style.display=&#39;none&#39;;dv56FormulaDesc.style.display=&#39;&#39;;"><img border="0" src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/p.gif"><center></center></div><div style="display:none" id="dv56FormulaDesc" onclick="ds56FormulaDesc.style.display=&#39;&#39;;dv56FormulaDesc.style.display=&#39;none&#39;;">Rejects during run (incl. low speed  events)/ Theo. prod. at target speed</div></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext">Reject losses due to stops (incl. start-up/ramp-down)</td></tr></tbody></table>
+</td>
+<td style="background-color:#DDDDDD" colspan="2">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">1.2</td>
+            <td class="docright">0.082</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.120</td>
+            <td class="doctext" colspan="4">11.6 k cig.</td>
+
+
+<td class="doctext"><div id="ds57FormulaDesc" title="" onclick="ds57FormulaDesc.style.display=&#39;none&#39;;dv57FormulaDesc.style.display=&#39;&#39;;"><img border="0" src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/p.gif"><center></center></div><div style="display:none" id="dv57FormulaDesc" onclick="ds57FormulaDesc.style.display=&#39;&#39;;dv57FormulaDesc.style.display=&#39;none&#39;;">Rejects due to stops (incl. start-up/ramp-down)/ Theo. prod. at target speed</div></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">Rejects after reference</td></tr></tbody></table>
+</td>
+<td style="background-color:#DDDDDD" colspan="2">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">2.9</td>
+            <td class="docright">0.205</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.299</td>
+            <td class="doctext" colspan="4">28.88 k cig.</td>
+
+
+<td class="doctext"><div id="ds58FormulaDesc" title="" onclick="ds58FormulaDesc.style.display=&#39;none&#39;;dv58FormulaDesc.style.display=&#39;&#39;;"><img border="0" src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/p.gif"><center></center></div><div style="display:none" id="dv58FormulaDesc" onclick="ds58FormulaDesc.style.display=&#39;&#39;;dv58FormulaDesc.style.display=&#39;none&#39;;">Downstream Machines Rejects / Theo. prod. at target speed</div></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+<tr>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td class="doctableheader"><b>Planned</b>
+
+
+</td><td class="doctableheader" colspan="2">Stops</td>
+<td class="doctableheader">Downtime</td>
+<td class="doctableheader" colspan="2">Uptime Loss</td>
+<td class="doctableheader">MTBF</td>
+<td class="doctableheader">MTTR</td>
+<td class="doctableheader" colspan="5">&nbsp;</td>
+<td class="doctableheader"><i>i</i></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+
+</tr>
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #dddddd;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="10"></td><td class="doctext">Planned downtime</td></tr></tbody></table>
+</td>
+<td class="docright">19</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">236.4</td>
+            <td class="docright">16.4</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">12.4</td>
+            <td class="doctext" colspan="5"></td>
+
+
+<td class="doctext"><div id="ds59FormulaDesc" title="" onclick="ds59FormulaDesc.style.display=&#39;none&#39;;dv59FormulaDesc.style.display=&#39;&#39;;"><img border="0" src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/p.gif"><center></center></div><div style="display:none" id="dv59FormulaDesc" onclick="ds59FormulaDesc.style.display=&#39;&#39;;dv59FormulaDesc.style.display=&#39;none&#39;;">Theoritical production during planned stops / Theoritical production at target speed</div></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220">SPA: Unavoidable stop</td><td class="doctext" nowrap="">&nbsp;2025-11-05 <b>06:30</b></td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">0.2</td>
+            <td class="docright">0.012</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.2</td>
+            <td class="doctext" colspan="5">RC '690': - : Unavoidable stop due to an Unavoidable stop on the Bundler</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220">Pitstop</td><td class="doctext" nowrap="">&nbsp;2025-11-05 <b>09:05</b></td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">35.9</td>
+            <td class="docright">2.49</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">35.9</td>
+            <td class="doctext" colspan="5">RC '601': Pitstop : No reason entered</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220">Planned Maintenance</td><td class="doctext" nowrap="">&nbsp;2025-11-05 <b>09:41</b></td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">0</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">21.5</td>
+            <td class="docright">1.49</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.0</td>
+            <td class="doctext" colspan="5"> (No original stop) - RC '604': Planned Maintenance : ganti SBU Reciprocating sesuai act DDS</td>
+
+
+<td class="doctext"><div id="ds62FormulaDesc" title="" onclick="ds62FormulaDesc.style.display=&#39;none&#39;;dv62FormulaDesc.style.display=&#39;&#39;;"><img border="0" src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/p.gif"><center></center></div><div style="display:none" id="dv62FormulaDesc" onclick="ds62FormulaDesc.style.display=&#39;&#39;;dv62FormulaDesc.style.display=&#39;none&#39;;">Event started when machine was already stopped.</div></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;2025-11-05 <b>10:04</b></td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">7.5</td>
+            <td class="docright">0.521</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">7.5</td>
+            <td class="doctext" colspan="5">RC '604': Planned Maintenance : ganti SBU Reciprocating sesuai act DDS</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;2025-11-05 <b>10:13</b></td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">2.2</td>
+            <td class="docright">0.150</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">2.2</td>
+            <td class="doctext" colspan="5">RC '604': Planned Maintenance : ganti SBU Reciprocating sesuai act DDS</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;2025-11-05 <b>10:28</b></td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">14.7</td>
+            <td class="docright">1.02</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">14.7</td>
+            <td class="doctext" colspan="5">RC '604': Planned Maintenance : ganti SBU Reciprocating sesuai act DDS</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;2025-11-05 <b>10:48</b></td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">5.3</td>
+            <td class="docright">0.370</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">5.3</td>
+            <td class="doctext" colspan="5">RC '604.01.02': Defect Fixation : pack dented, repair folding guide 2  </td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;2025-11-05 <b>10:54</b></td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">16.8</td>
+            <td class="docright">1.17</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">16.8</td>
+            <td class="doctext" colspan="5">RC '604.01.02': Defect Fixation : pack dented, repair folding guide 2  </td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;2025-11-05 <b>11:11</b></td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">20.9</td>
+            <td class="docright">1.45</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">20.9</td>
+            <td class="doctext" colspan="5">RC '604.01.02': Defect Fixation : pack dented, repair folding guide 2  </td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220">Pitstop</td><td class="doctext" nowrap="">&nbsp;2025-11-05 <b>16:34</b></td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">32.4</td>
+            <td class="docright">2.25</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">32.4</td>
+            <td class="doctext" colspan="5">RC '601.01': Daily Cleaning : Planstop: ukur gap cover FG2, bypass compress air auto cleaning sensor s blank missing</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;2025-11-05 <b>23:48</b></td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">32.2</td>
+            <td class="docright">2.23</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">32.2</td>
+            <td class="doctext" colspan="5">RC '601.01': Daily Cleaning : Planstop</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;2025-11-06 <b>00:25</b></td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">0.5</td>
+            <td class="docright">0.035</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.5</td>
+            <td class="doctext" colspan="5">RC '601.01': Daily Cleaning : Planstop</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;2025-11-06 <b>00:30</b></td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">5.4</td>
+            <td class="docright">0.372</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">5.4</td>
+            <td class="doctext" colspan="5">RC '601.01': Daily Cleaning : Planstop</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;2025-11-06 <b>00:40</b></td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">0.2</td>
+            <td class="docright">0.012</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.2</td>
+            <td class="doctext" colspan="5">RC '601.01': Daily Cleaning : Planstop</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220">SPA: Unavoidable stop</td><td class="doctext" nowrap="">&nbsp;2025-11-06 <b>01:08</b></td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">0.2</td>
+            <td class="docright">0.012</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.2</td>
+            <td class="doctext" colspan="5">RC '690': - : Unavoidable stop</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220">Planned Maintenance</td><td class="doctext" nowrap="">&nbsp;2025-11-06 <b>02:52</b></td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">12.0</td>
+            <td class="docright">0.834</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">12.0</td>
+            <td class="doctext" colspan="5">RC '604': Planned Maintenance : setting cutting knive innerframe </td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;2025-11-06 <b>03:08</b></td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">0.5</td>
+            <td class="docright">0.035</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">0.5</td>
+            <td class="doctext" colspan="5">RC '604': Planned Maintenance : setting cutting knive innerframe </td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;2025-11-06 <b>03:15</b></td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">16.9</td>
+            <td class="docright">1.17</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">16.9</td>
+            <td class="doctext" colspan="5">RC '604': Planned Maintenance : setting cutting knive innerframe </td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;2025-11-06 <b>03:33</b></td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">7.8</td>
+            <td class="docright">0.544</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">7.8</td>
+            <td class="doctext" colspan="5">RC '604': Planned Maintenance : setting cutting knive innerframe </td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="docright" width="220"></td><td class="doctext" nowrap="">&nbsp;2025-11-06 <b>03:42</b></td></tr></tbody></table></td></tr></tbody></table>
+</td>
+<td class="docright">1</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">3.7</td>
+            <td class="docright">0.255</td>
+            <td class="doctext">%</td>
+            <td style="background-color:#DDDDDD">&nbsp;</td>
+            <td class="doccenter">3.7</td>
+            <td class="doctext" colspan="5">RC '604': Planned Maintenance : setting cutting knive innerframe </td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+<tr>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td class="doctableheader"><b>External</b>
+
+
+</td><td class="doctableheader" colspan="2" width="60">Stops</td>
+<td class="doctableheader" width="60">Downtime</td>
+<td class="doctableheader" colspan="2" width="60">Uptime Loss</td>
+<td class="doctableheader" width="60">MTBF</td>
+<td class="doctableheader" width="60">MTTR</td>
+<td class="doctableheader" colspan="5">&nbsp;</td>
+<td class="doctableheader"><i>i</i></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+
+
+</tr>
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #dddddd;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="10"></td><td class="doctext">External downtime (Unplanned by definition)</td></tr></tbody></table>
+</td>
+<td class="docright">0</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">0.0</td>
+            <td class="docright">0.000</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">1177</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.0</td>
+           <td class="doctext" colspan="5"></td>
+
+
+<td class="doctext"><div id="ds80FormulaDesc" title="" onclick="ds80FormulaDesc.style.display=&#39;none&#39;;dv80FormulaDesc.style.display=&#39;&#39;;"><img border="0" src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/p.gif"><center></center></div><div style="display:none" id="dv80FormulaDesc" onclick="ds80FormulaDesc.style.display=&#39;&#39;;dv80FormulaDesc.style.display=&#39;none&#39;;">Theo production during external stops / Theo production during working time at DS</div></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+<tr>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td class="doctableheader"><b>Unplanned</b>
+
+
+</td><td class="doctableheader" colspan="2" width="60">Stops</td>
+<td class="doctableheader" width="60">Downtime</td>
+<td class="doctableheader" colspan="2" width="60">Uptime Loss</td>
+<td class="doctableheader" width="60">MTBF</td>
+<td class="doctableheader" width="60">MTTR</td>
+<td class="doctableheader" colspan="5">&nbsp;</td>
+<td class="doctableheader"><i>i</i></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+
+
+</tr>
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #dddddd;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="10"></td><td class="doctext">Unplanned downtime</td></tr></tbody></table>
+</td>
+<td class="docright">18</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">26.5</td>
+            <td class="docright">1.84</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">65.4</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">1.5</td>
+           <td class="doctext" colspan="5">Total line: 364 stops</td>
+
+
+<td class="doctext"><div id="ds81FormulaDesc" title="" onclick="ds81FormulaDesc.style.display=&#39;none&#39;;dv81FormulaDesc.style.display=&#39;&#39;;"><img border="0" src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/p.gif"><center></center></div><div style="display:none" id="dv81FormulaDesc" onclick="ds81FormulaDesc.style.display=&#39;&#39;;dv81FormulaDesc.style.display=&#39;none&#39;;">Theoritical production during unplanned stops / Theoritical production at target speed</div></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext">Shift 1</td></tr></tbody></table>
+</td>
+<td class="docright">11</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">15.0</td>
+            <td class="docright">1.04</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">30.9</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">1.4</td>
+           <td class="doctext" colspan="5"></td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext">Shift 2</td></tr></tbody></table>
+</td>
+<td class="docright">2</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">1.5</td>
+            <td class="docright">0.105</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">223</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.8</td>
+           <td class="doctext" colspan="5"></td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext">Shift 3</td></tr></tbody></table>
+</td>
+<td class="docright">5</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">10.0</td>
+            <td class="docright">0.696</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">78.2</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">2.0</td>
+           <td class="doctext" colspan="5"></td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #dddddd;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="10"></td><td class="doctext">Unplanned downtime per Category</td></tr></tbody></table>
+</td>
+<td class="docright">18</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">26.5</td>
+            <td class="docright">1.84</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">65.4</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">1.5</td>
+           <td class="doctext" colspan="5"></td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #ffffff;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="30"></td><td class="doctext">300</td></tr></tbody></table>
+</td>
+<td class="docright">18</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">26.5</td>
+            <td class="docright">1.84</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">65.4</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">1.5</td>
+           <td class="doctext" colspan="5">Minor Stops 301 + Assigned in the VL + Not assigned in MES + Not assigned due to SPA &amp; MES use different logics</td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #dddddd;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="10"></td><td class="doctext">Breakdown &amp; Process Failures</td></tr></tbody></table>
+</td>
+<td class="docright">0</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">0.0</td>
+            <td class="docright">0</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.0</td>
+           <td class="doctext" colspan="5"></td>
+
+
+<td class="doctext"><div id="ds87FormulaDesc" title="" onclick="ds87FormulaDesc.style.display=&#39;none&#39;;dv87FormulaDesc.style.display=&#39;&#39;;"><img border="0" src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/p.gif"><center></center></div><div style="display:none" id="dv87FormulaDesc" onclick="ds87FormulaDesc.style.display=&#39;&#39;;dv87FormulaDesc.style.display=&#39;none&#39;;">Theoritical production during long stops / Theoritical production at target speed</div></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">Breakdown</td></tr></tbody></table>
+</td>
+<td class="docright">0</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">0.0</td>
+            <td class="docright">0</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.0</td>
+           <td class="doctext" colspan="5"></td>
+
+
+<td class="doctext"><div id="ds88FormulaDesc" title="" onclick="ds88FormulaDesc.style.display=&#39;none&#39;;dv88FormulaDesc.style.display=&#39;&#39;;"><img border="0" src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/p.gif"><center></center></div><div style="display:none" id="dv88FormulaDesc" onclick="ds88FormulaDesc.style.display=&#39;&#39;;dv88FormulaDesc.style.display=&#39;none&#39;;">Theoritical production during breakdowns / Theoritical production at target speed</div></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">Process failures (&gt; 10 min)</td></tr></tbody></table>
+</td>
+<td class="docright">0</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">0.0</td>
+            <td class="docright">0</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.0</td>
+           <td class="doctext" colspan="5"></td>
+
+
+<td class="doctext"><div id="ds89FormulaDesc" title="" onclick="ds89FormulaDesc.style.display=&#39;none&#39;;dv89FormulaDesc.style.display=&#39;&#39;;"><img border="0" src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/p.gif"><center></center></div><div style="display:none" id="dv89FormulaDesc" onclick="ds89FormulaDesc.style.display=&#39;&#39;;dv89FormulaDesc.style.display=&#39;none&#39;;">Theo. prod. during process failures/ Theo. prod.</div></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #dddddd;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="10"></td><td class="doctext">Low volume events</td></tr></tbody></table>
+</td>
+<td class="docright">22</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="docright">&nbsp;</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">&nbsp;</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">53.5</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">1.2</td>
+           <td class="doctext" colspan="5">Run events with produced volume below minimum threshold</td>
+
+
+<td class="doctext"><div id="ds90FormulaDesc" title="" onclick="ds90FormulaDesc.style.display=&#39;none&#39;;dv90FormulaDesc.style.display=&#39;&#39;;"><img border="0" src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/p.gif"><center></center></div><div style="display:none" id="dv90FormulaDesc" onclick="ds90FormulaDesc.style.display=&#39;&#39;;dv90FormulaDesc.style.display=&#39;none&#39;;">These run events were moved into a stop sequence and did not generate additional stops</div></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+<tr>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td class="doctableheader"><b>Unplanned machine stop reasons (ordered by stop count)</b>
+
+
+</td><td class="doctableheader">Stops</td>
+<td class="doctableheader">Ramp-up</td>
+<td class="doctableheader">Downtime</td>
+<td class="doctableheader" colspan="2">Uptime Loss</td>
+<td class="doctableheader">MTBF</td>
+<td class="doctableheader">MTTR</td>
+<td class="doctableheader" width="60">Rejects [%]</td>
+<td class="doctableheader" colspan="3">Stops per shift</td>
+<td class="doctableheader">Causing equipment</td>
+<td class="doctableheader">&nbsp;</td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+
+
+</tr>
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">PACKET GUIDE, DISCHARGE</td></tr></tbody></table>
+</td>
+
+            <td class="docright" nowrap="">4</td>
+            <td class="doccenter" nowrap="" style="border-right:1px dotted #BBBBBB"><span title="No stops happened after start-up.">0</span></td>
+            <td class="docright" nowrap="" style="border-right:1px dotted #BBBBBB">8.4</td>
+            <td class="docright">0.581</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">294</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">2.1</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.010</td>
+            <td class="doccenter">1</td>
+            <td class="doccenter">1</td>
+            <td class="doccenter">2</td>
+            <td class="doctext"> <a href="http://ots.app.pmi/db.aspx?table=SPA_StopPerSegment&amp;act=query&amp;db_CauseFL=ID01-SE-CP-L021-PACK&amp;db_TimePeriod=2025-11-05&amp;db_FunctionalLocation=ID01-SE-CP-L021-PACK&amp;db_CauseStopCode=202" title="Show trend over time" class="doclink">Packer - Code:202</a></td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">STOP BUTTON, OPS PANEL hlp_550</td></tr></tbody></table>
+</td>
+
+            <td class="docright" nowrap="">2</td>
+            <td class="doccenter" nowrap="" style="border-right:1px dotted #BBBBBB"><span title="All stops happen on average 20 seconds after start-up."><i>2</i></span></td>
+            <td class="docright" nowrap="" style="border-right:1px dotted #BBBBBB">1.8</td>
+            <td class="docright">0.127</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">589</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.9</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.012</td>
+            <td class="doccenter">1</td>
+            <td class="doccenter"></td>
+            <td class="doccenter">1</td>
+            <td class="doctext"> <a href="http://ots.app.pmi/db.aspx?table=SPA_StopPerSegment&amp;act=query&amp;db_CauseFL=ID01-SE-CP-L021-PACK&amp;db_TimePeriod=2025-11-05&amp;db_FunctionalLocation=ID01-SE-CP-L021-PACK&amp;db_CauseStopCode=104" title="Show trend over time" class="doclink">Packer - Code:104</a></td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">DISCHARGE PUSHER, DRYING DRUM 2</td></tr></tbody></table>
+</td>
+
+            <td class="docright" nowrap="">2</td>
+            <td class="doccenter" nowrap="" style="border-right:1px dotted #BBBBBB"><span title="No stops happened after start-up.">0</span></td>
+            <td class="docright" nowrap="" style="border-right:1px dotted #BBBBBB">1.2</td>
+            <td class="docright">0.081</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">589</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.6</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.003</td>
+            <td class="doccenter">1</td>
+            <td class="doccenter"></td>
+            <td class="doccenter">1</td>
+            <td class="doctext"> <a href="http://ots.app.pmi/db.aspx?table=SPA_StopPerSegment&amp;act=query&amp;db_CauseFL=ID01-SE-CP-L021-PACK&amp;db_TimePeriod=2025-11-05&amp;db_FunctionalLocation=ID01-SE-CP-L021-PACK&amp;db_CauseStopCode=205" title="Show trend over time" class="doclink">Packer - Code:205</a></td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">REGISTRATION MARK, INNER FRAME</td></tr></tbody></table>
+</td>
+
+            <td class="docright" nowrap="">1</td>
+            <td class="doccenter" nowrap="" style="border-right:1px dotted #BBBBBB"><span title="No stops happened after start-up.">0</span></td>
+            <td class="docright" nowrap="" style="border-right:1px dotted #BBBBBB">9.2</td>
+            <td class="docright">0.635</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">1177</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">9.2</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.008</td>
+            <td class="doccenter">1</td>
+            <td class="doccenter"></td>
+            <td class="doccenter"></td>
+            <td class="doctext"> <a href="http://ots.app.pmi/db.aspx?table=SPA_StopPerSegment&amp;act=query&amp;db_CauseFL=ID01-SE-CP-L021-PACK&amp;db_TimePeriod=2025-11-05&amp;db_FunctionalLocation=ID01-SE-CP-L021-PACK&amp;db_CauseStopCode=125" title="Show trend over time" class="doclink">Packer - Code:125</a></td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">TURRET COVER, LEFT</td></tr></tbody></table>
+</td>
+
+            <td class="docright" nowrap="">1</td>
+            <td class="doccenter" nowrap="" style="border-right:1px dotted #BBBBBB"><span title="No stops happened after start-up.">0</span></td>
+            <td class="docright" nowrap="" style="border-right:1px dotted #BBBBBB">1.7</td>
+            <td class="docright">0.116</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">1177</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">1.7</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.005</td>
+            <td class="doccenter"></td>
+            <td class="doccenter"></td>
+            <td class="doccenter">1</td>
+            <td class="doctext"> <a href="http://ots.app.pmi/db.aspx?table=SPA_StopPerSegment&amp;act=query&amp;db_CauseFL=ID01-SE-CP-L021-PACK&amp;db_TimePeriod=2025-11-05&amp;db_FunctionalLocation=ID01-SE-CP-L021-PACK&amp;db_CauseStopCode=84" title="Show trend over time" class="doclink">Packer - Code:84</a></td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">COVER 1, PACKET TRACK</td></tr></tbody></table>
+</td>
+
+            <td class="docright" nowrap="">1</td>
+            <td class="doccenter" nowrap="" style="border-right:1px dotted #BBBBBB"><span title="No stops happened after start-up.">0</span></td>
+            <td class="docright" nowrap="" style="border-right:1px dotted #BBBBBB">1.5</td>
+            <td class="docright">0.104</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">1177</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">1.5</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.004</td>
+            <td class="doccenter">1</td>
+            <td class="doccenter"></td>
+            <td class="doccenter"></td>
+            <td class="doctext"> <a href="http://ots.app.pmi/db.aspx?table=SPA_StopPerSegment&amp;act=query&amp;db_CauseFL=ID01-SE-CP-L021-PACK&amp;db_TimePeriod=2025-11-05&amp;db_FunctionalLocation=ID01-SE-CP-L021-PACK&amp;db_CauseStopCode=196" title="Show trend over time" class="doclink">Packer - Code:196</a></td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">PACKET GUIDE, PACKET TRACK</td></tr></tbody></table>
+</td>
+
+            <td class="docright" nowrap="">1</td>
+            <td class="doccenter" nowrap="" style="border-right:1px dotted #BBBBBB"><span title="No stops happened after start-up.">0</span></td>
+            <td class="docright" nowrap="" style="border-right:1px dotted #BBBBBB">0.8</td>
+            <td class="docright">0.058</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">1177</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.8</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.002</td>
+            <td class="doccenter">1</td>
+            <td class="doccenter"></td>
+            <td class="doccenter"></td>
+            <td class="doctext"> <a href="http://ots.app.pmi/db.aspx?table=SPA_StopPerSegment&amp;act=query&amp;db_CauseFL=ID01-SE-CP-L021-PACK&amp;db_TimePeriod=2025-11-05&amp;db_FunctionalLocation=ID01-SE-CP-L021-PACK&amp;db_CauseStopCode=198" title="Show trend over time" class="doclink">Packer - Code:198</a></td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">INNER FRAME TRANSVERSAL TRANSPORT BELT</td></tr></tbody></table>
+</td>
+
+            <td class="docright" nowrap="">1</td>
+            <td class="doccenter" nowrap="" style="border-right:1px dotted #BBBBBB"><span title="No stops happened after start-up.">0</span></td>
+            <td class="docright" nowrap="" style="border-right:1px dotted #BBBBBB">0.5</td>
+            <td class="docright">0.035</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">1177</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.5</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.003</td>
+            <td class="doccenter">1</td>
+            <td class="doccenter"></td>
+            <td class="doccenter"></td>
+            <td class="doctext"> <a href="http://ots.app.pmi/db.aspx?table=SPA_StopPerSegment&amp;act=query&amp;db_CauseFL=ID01-SE-CP-L021-PACK&amp;db_TimePeriod=2025-11-05&amp;db_FunctionalLocation=ID01-SE-CP-L021-PACK&amp;db_CauseStopCode=158" title="Show trend over time" class="doclink">Packer - Code:158</a></td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">FOIL EDGE, LEFT</td></tr></tbody></table>
+</td>
+
+            <td class="docright" nowrap="">1</td>
+            <td class="doccenter" nowrap="" style="border-right:1px dotted #BBBBBB"><span title="No stops happened after start-up.">0</span></td>
+            <td class="docright" nowrap="" style="border-right:1px dotted #BBBBBB">0.2</td>
+            <td class="docright">0.012</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">1177</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.2</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.005</td>
+            <td class="doccenter"></td>
+            <td class="doccenter">1</td>
+            <td class="doccenter"></td>
+            <td class="doctext"> <a href="http://ots.app.pmi/db.aspx?table=SPA_StopPerSegment&amp;act=query&amp;db_CauseFL=ID01-SE-CP-L021-PACK&amp;db_TimePeriod=2025-11-05&amp;db_FunctionalLocation=ID01-SE-CP-L021-PACK&amp;db_CauseStopCode=114" title="Show trend over time" class="doclink">Packer - Code:114</a></td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">S BLANK MISSING, RIGHT</td></tr></tbody></table>
+</td>
+
+            <td class="docright" nowrap="">1</td>
+            <td class="doccenter" nowrap="" style="border-right:1px dotted #BBBBBB"><span title="No stops happened after start-up.">0</span></td>
+            <td class="docright" nowrap="" style="border-right:1px dotted #BBBBBB">0.2</td>
+            <td class="docright">0.012</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">1177</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.2</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.001</td>
+            <td class="doccenter">1</td>
+            <td class="doccenter"></td>
+            <td class="doccenter"></td>
+            <td class="doctext"> <a href="http://ots.app.pmi/db.aspx?table=SPA_StopPerSegment&amp;act=query&amp;db_CauseFL=ID01-SE-CP-L021-PACK&amp;db_TimePeriod=2025-11-05&amp;db_FunctionalLocation=ID01-SE-CP-L021-PACK&amp;db_CauseStopCode=163" title="Show trend over time" class="doclink">Packer - Code:163</a></td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">DISCHARGE FULL</td></tr></tbody></table>
+</td>
+
+            <td class="docright" nowrap="">1</td>
+            <td class="doccenter" nowrap="" style="border-right:1px dotted #BBBBBB"><span title="No stops happened after start-up.">0</span></td>
+            <td class="docright" nowrap="" style="border-right:1px dotted #BBBBBB">0.2</td>
+            <td class="docright">0.012</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">1177</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.2</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.001</td>
+            <td class="doccenter">1</td>
+            <td class="doccenter"></td>
+            <td class="doccenter"></td>
+            <td class="doctext"> <a href="http://ots.app.pmi/db.aspx?table=SPA_StopPerSegment&amp;act=query&amp;db_CauseFL=ID01-SE-CP-L021-PACK&amp;db_TimePeriod=2025-11-05&amp;db_FunctionalLocation=ID01-SE-CP-L021-PACK&amp;db_CauseStopCode=203" title="Show trend over time" class="doclink">Packer - Code:203</a></td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">BOBBIN NOT PREPARED, RIGHT</td></tr></tbody></table>
+</td>
+
+            <td class="docright" nowrap="">1</td>
+            <td class="doccenter" nowrap="" style="border-right:1px dotted #BBBBBB"><span title="No stops happened after start-up.">0</span></td>
+            <td class="docright" nowrap="" style="border-right:1px dotted #BBBBBB">0.2</td>
+            <td class="docright">0.012</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">1177</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.2</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.001</td>
+            <td class="doccenter">1</td>
+            <td class="doccenter"></td>
+            <td class="doccenter"></td>
+            <td class="doctext"> <a href="http://ots.app.pmi/db.aspx?table=SPA_StopPerSegment&amp;act=query&amp;db_CauseFL=ID01-SE-CP-L021-PACK&amp;db_TimePeriod=2025-11-05&amp;db_FunctionalLocation=ID01-SE-CP-L021-PACK&amp;db_CauseStopCode=143" title="Show trend over time" class="doclink">Packer - Code:143</a></td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">CIG. VANES EMPTY</td></tr></tbody></table>
+</td>
+
+            <td class="docright" nowrap="">1</td>
+            <td class="doccenter" nowrap="" style="border-right:1px dotted #BBBBBB"><span title="No stops happened after start-up.">0</span></td>
+            <td class="docright" nowrap="" style="border-right:1px dotted #BBBBBB">0.2</td>
+            <td class="docright">0.012</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">1177</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.2</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0</td>
+            <td class="doccenter">1</td>
+            <td class="doccenter"></td>
+            <td class="doccenter"></td>
+            <td class="doctext"> <a href="http://ots.app.pmi/db.aspx?table=SPA_StopPerSegment&amp;act=query&amp;db_CauseFL=ID01-SE-CP-L021-PACK&amp;db_TimePeriod=2025-11-05&amp;db_FunctionalLocation=ID01-SE-CP-L021-PACK&amp;db_CauseStopCode=82" title="Show trend over time" class="doclink">Packer - Code:82</a></td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+
+
+
+<tr cellspacing="0" cellpadding="2" style="background-color: #F1F1EE;font-color:black">
+<td style="background-color:#CCCCCC">&nbsp;</td>
+<td>
+    <table cellspacing="0" cellpadding="0"><tbody><tr><td width="20"></td><td class="doctext">Glue Jets Cleaning Mode</td></tr></tbody></table>
+</td>
+
+            <td class="docright" nowrap="">0</td>
+            <td class="doccenter" nowrap="" style="border-right:1px dotted #BBBBBB"><span title="No stops happened after start-up.">0</span></td>
+            <td class="docright" nowrap="" style="border-right:1px dotted #BBBBBB">0.7</td>
+            <td class="docright">0.046</td>
+            <td class="doctext" style="border-right:1px dotted #BBBBBB">%</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">1177</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.7</td>
+            <td class="doccenter" style="border-right:1px dotted #BBBBBB">0.006</td>
+            <td class="doccenter"></td>
+            <td class="doccenter"></td>
+            <td class="doccenter"></td>
+            <td class="doctext"> <a href="http://ots.app.pmi/db.aspx?table=SPA_StopPerSegment&amp;act=query&amp;db_CauseFL=ID01-SE-CP-L021-PACK&amp;db_TimePeriod=2025-11-05&amp;db_FunctionalLocation=ID01-SE-CP-L021-PACK&amp;db_CauseStopCode=243" title="Show trend over time" class="doclink">Packer - Code:243</a></td>
+
+
+<td class="doctext"></td>
+<td style="background-color:#CCCCCC">&nbsp;</td>
+</tr>
+</tbody></table><iframe style="Display:none" name="if1" id="if1" border="1" src="./2025-11-05 Loss tree (Primary Monitoring Analysis Tool)_files/blank.html"></iframe>
+
+<script language="JavaScript">
+
+
+
+function refresh_form(){
+document.query0.action='?table=SPA_NormPeriodLossTree&act=query'
+document.query0.submit()
+}
+</script>
+
+
+<script type="text/javascript" language="javascript">
+//Rabi updated source code on 6th-Dec-2017 in .vb file this only for check latest source code .
+ function Show_Wait2()
+    {
+        var elem = document.getElementById("wait2");
+        if (elem)
+        {
+            elem.style.display = '';
+        }
+    }
+
+//    function HideWait()
+//    {
+//    var elem = document.getElementById("mydiv");
+//    if (elem)
+//        {
+//            mydiv.style.visibility = 'hidden';
+//            window.clearInterval(1000);
+//        }
+//    }
+
+    function UpdateDiv(divname, imgname, url) {
+        if (divname.style.display == '') {
+            divname.style.display = 'None';
+            if (imgname.src.substr(imgname.src.length - 6) == 'lk.gif') {
+                imgname.src = "./wdab_images/plk.gif";
+            }
+            else {
+                imgname.src = "./wdab_images/p.gif";
+            }
+        }
+        else {
+            divname.style.display = '';
+            if (imgname.src.substr(imgname.src.length - 6) == 'lk.gif') {
+                imgname.src = "./wdab_images/mlk.gif";
+            }
+            else {
+                imgname.src = "./wdab_images/m.gif";
+            }
+            if ((!divname.isloaded || window.event.shiftKey) && url != '' && url.substr(0, 1) != '&') {
+                divname.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT color=gray>Loading data...</FONT>";
+                var now = new Date();
+                if (url.search(/\?/) == -1) {
+                    document.all.if1.src = url + '?ts=' + now.getTime();
+                }
+                else {
+                    document.all.if1.src = url + '&ts=' + now.getTime();
+                }
+            }
+
+            else if (divname.innerHTML.replace(/\w/, '') == '') {
+                if (imgname.src.substr(imgname.src.length - 6) == 'lk.gif') {
+                    imgname.src = "./wdab_images/link.gif";
+                }
+                else {
+                    imgname.src = "./wdab_images/trans.gif";
+                }
+            }
+        }
+    }
+
+    function updateparent()
+        {
+        try
+        {
+            if (parent.div)
+            {
+                parent.div.innerHTML = divsource.innerHTML;
+                parent.div.isloaded = true;
+            }
+
+
+        }
+        catch(ex)
+        {
+        }
+    }
+
+    updateparent();
+        //HideWait();
+    </script>
+
+</body></html>

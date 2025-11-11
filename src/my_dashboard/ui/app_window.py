@@ -5,6 +5,8 @@ from __future__ import annotations
 import tkinter as tk
 from tkinter import DISABLED, NORMAL, messagebox
 from typing import Optional, Set
+from functools import wraps
+from inspect import iscoroutinefunction
 
 import httpx
 import pandas as pd
@@ -14,18 +16,92 @@ from async_tkinter_loop import async_handler
 from PIL import ImageTk
 from ttkbootstrap.toast import ToastNotification
 
-from ..components.target_editor import TargetEditor
-from ..services.achievement_service import (
+from my_dashboard.services.achievement_service import (
     compute_row_updates,
     fetch_actual_metrics,
     load_target_shift,
 )
-from ..services.card_service import append_cards_to_csv, build_card_rows
-from ..services.spa_service import SpaScraper
-from ..utils.constants import HEADERS, NTLM_AUTH
+
+from ..components.target_editor import TargetEditor
+
+from ..controllers import ControllerError, DashboardController
 from ..utils.csvhandle import get_targets_file_path
-from ..utils.helpers import read_config, resource_path
+from ..utils.helpers import get_url_period_loss_tree, read_config, resource_path
 from .dashboard_view import DashboardView
+
+
+def _resolve_button(instance, button_name):
+    sidebar = getattr(instance, "sidebar", None)
+    if sidebar and hasattr(sidebar, button_name):
+        return getattr(sidebar, button_name)
+    return getattr(instance, button_name, None)
+
+
+def with_progressbar(func):
+    """Decorator to automatically start/stop the window progressbar."""
+
+    if iscoroutinefunction(func):
+
+        @wraps(func)
+        async def async_wrapper(self, *args, **kwargs):
+            progressbar = getattr(self, "progressbar", None)
+            if progressbar:
+                progressbar.start()
+            try:
+                return await func(self, *args, **kwargs)
+            finally:
+                if progressbar:
+                    progressbar.stop()
+
+        return async_wrapper
+
+    @wraps(func)
+    def sync_wrapper(self, *args, **kwargs):
+        progressbar = getattr(self, "progressbar", None)
+        if progressbar:
+            progressbar.start()
+        try:
+            return func(self, *args, **kwargs)
+        finally:
+            if progressbar:
+                progressbar.stop()
+
+    return sync_wrapper
+
+
+def with_button_state(button_name: str):
+    """Decorator to disable/enable a button while a handler runs."""
+
+    def decorator(func):
+        if iscoroutinefunction(func):
+
+            @wraps(func)
+            async def async_wrapper(self, *args, **kwargs):
+                button = _resolve_button(self, button_name)
+                if button:
+                    button.configure(state=DISABLED)
+                try:
+                    return await func(self, *args, **kwargs)
+                finally:
+                    if button:
+                        button.configure(state=NORMAL)
+
+            return async_wrapper
+
+        @wraps(func)
+        def sync_wrapper(self, *args, **kwargs):
+            button = _resolve_button(self, button_name)
+            if button:
+                button.configure(state=DISABLED)
+            try:
+                return func(self, *args, **kwargs)
+            finally:
+                if button:
+                    button.configure(state=NORMAL)
+
+        return sync_wrapper
+
+    return decorator
 
 
 class App(ttk.Window):
@@ -43,11 +119,12 @@ class App(ttk.Window):
         self._active_toasts: Set[ToastNotification] = set()
         self.protocol("WM_DELETE_WINDOW", self._on_close)
 
-        self.spa_scraper = SpaScraper("spa.html")
+        self.controller = DashboardController()
         self.target_editor: Optional[TargetEditor] = None
         self.data_window: Optional[ttk.Toplevel] = None
         self.view = DashboardView(self)
         self.sidebar = self.view.sidebar
+        self.date_entry = self.sidebar.dt
         self.progressbar = self.view.progressbar
         self.time_period = self.view.time_period
         self.issue_table = self.view.issue_table
@@ -64,9 +141,7 @@ class App(ttk.Window):
 
         self.sidebar.btn_target.configure(command=self.show_target_editor)
         self.sidebar.btn_get_data.configure(command=self.get_data)
-        self.sidebar.btn_result.configure(
-            command=self.update_achievement_target_from_csv
-        )
+        self.sidebar.btn_result.configure(command=self.refresh_achievement_table)
         self.sidebar.btn_save.configure(command=self.save_data_cards_to_csv)
 
         link_up_values = sorted(self.data_config.get("DEFAULT", "link_up").split(","))
@@ -76,18 +151,57 @@ class App(ttk.Window):
 
         self.issue_table.view.bind("<Double-1>", self.on_table_double_click)
 
-        self._initialize_issue_table(self.spa_scraper)
+        # self._initialize_issue_table()
 
-    def _initialize_issue_table(self, scraper: SpaScraper):
-        issue_df = scraper.get_issue_dataframe()
+    async def _initialize_stop_reason_table(self):
+        issue_df = await self.controller.load_local_issue_dataframe()
+        self._populate_issue_table(issue_df)
+
+    def _populate_issue_table(self, issue_df: pd.DataFrame) -> None:
         if issue_df.empty:
             return
 
         self.issue_table.delete_rows()
+        self.issue_table.columnconfigure(0, weight=1)
+        self.issue_table.columnconfigure(1, weight=1)
         self.issue_table.build_table_data(
             issue_df.columns.to_list(), issue_df.values.tolist()
         )
         self.issue_table.reset_table()
+
+    def _get_selected_date(self) -> str:
+        if hasattr(self.date_entry, "entry"):
+            return self.date_entry.entry.get()
+        try:
+            return self.date_entry.get_date().isoformat()  # type: ignore[call-arg]
+        except AttributeError:
+            return str(self.date_entry)
+
+    @staticmethod
+    def _extract_actual_record(
+        data_losses: object,
+    ) -> dict[str, object]:
+        if isinstance(data_losses, pd.DataFrame):
+            if data_losses.empty:
+                return {}
+            return data_losses.iloc[0].to_dict()
+        if isinstance(data_losses, pd.Series):
+            return data_losses.to_dict()
+        if isinstance(data_losses, dict):
+            return dict(data_losses)
+        return {}
+
+    @staticmethod
+    def _format_http_error(exc: httpx.HTTPError, url: str) -> str:
+        response = getattr(exc, "response", None)
+        if response is not None:
+            reason = getattr(response, "reason_phrase", "") or getattr(
+                response, "reason", ""
+            )
+            status_line = f"{response.status_code} {reason}".strip()
+            return f"{status_line}\n{exc}\nURL: {url}"
+
+        return f"{exc.__class__.__name__}: {exc}\nURL: {url}"
 
     def add_new_card(self, issue_text: Optional[str] = None):
         return self.view.add_card(issue_text)
@@ -136,6 +250,13 @@ class App(ttk.Window):
         )
         data_text.pack(side="left", fill="both", expand=True, padx=(10, 0), pady=10)
 
+        data_text.insert(
+            "end",
+            f"*{self.sidebar.func_location.get()} {self.sidebar.lu.get().strip('LU')}*"
+            + " | "
+            + f"{self._get_selected_date()}, {self.sidebar.select_shift.get()}\n",
+        )
+
         data_header = ["METRIK", "TARGET", "AKTUAL"]
         data_table = [tuple(row.values) for row in self.achieve_table.tablerows]
         if self.check_table.instate(["selected"]):
@@ -143,12 +264,12 @@ class App(ttk.Window):
 
             data_text.insert(
                 "end",
-                tabulate(
+                f"`{tabulate(
                     data_table,
                     data_header,
                     tablefmt="pretty",
                     stralign="center",
-                )
+                ).replace('\n','`\n`')}`"
                 + "\n",
             )
 
@@ -175,55 +296,74 @@ class App(ttk.Window):
         self.data_window.focus()
 
     @async_handler
+    @with_button_state("btn_get_data")
+    @with_progressbar
     async def get_data(self):
+        url = self._get_url(
+            self.sidebar.lu.get().strip("LU"),
+            self._get_selected_date(),
+            self.sidebar.select_shift.get().strip("Shift "),
+            self.sidebar.func_location.get()[:4],
+        )
+
+        if not url:
+            return
+
         try:
-            self.progressbar.start()
-            self.sidebar.btn_get_data.configure(state=DISABLED)
-
-            async with httpx.AsyncClient(timeout=30) as client:
-                response = await client.get(
-                    "http://127.0.0.1:5500/spa.html",
-                    follow_redirects=True,
-                    headers=HEADERS,
-                    auth=NTLM_AUTH,
-                )
-            if response.status_code == 200:
-                spa = SpaScraper(response.text, is_html=True)
-                df = spa.get_issue_dataframe()
-                self.time_period.configure(
-                    text=spa.get_actual_data_metric().get("RANGE", "")
-                )
-
-                head = df.columns.to_list()
-                data = df.values.tolist()
-                self.issue_table.columnconfigure(0, weight=1)
-                self.issue_table.columnconfigure(1, weight=1)
-                self.issue_table.build_table_data(head, data)
-                self.issue_table.reset_table()
-
-                self._show_toast(
-                    title="Berhasil",
-                    message="Data berhasil diambil.",
-                    bootstyle="success",
-                    duration=3000,
-                )
-            else:
-                self._show_toast(
-                    title="Kesalahan",
-                    message=f"Error Code {response.status_code}: {response.text}",
-                    bootstyle="danger",
-                    duration=3000,
-                )
-        except httpx.HTTPError as e:
+            processed = await self.controller.fetch_remote_issue_data(url)
+        except ControllerError as exc:
             self._show_toast(
-                title="HTTP Error",
-                message=str(e),
+                title="Kesalahan",
+                message=str(exc),
                 bootstyle="danger",
                 duration=3000,
             )
-        finally:
-            self.progressbar.stop()
-            self.sidebar.btn_get_data.configure(state=NORMAL)
+            return
+        except httpx.HTTPError as exc:
+            self._show_toast(
+                title="HTTP Error",
+                message=self._format_http_error(exc, url),
+                bootstyle="danger",
+                duration=3000,
+            )
+            return
+
+        stops_df = processed.get("stops_reason", pd.DataFrame())
+        data_losses_df = processed.get("data_losses", pd.DataFrame())
+
+        self._populate_issue_table(stops_df)
+
+        actual_record = self._extract_actual_record(data_losses_df)
+        time_text = actual_record.get("RANGE") or actual_record.get("Time range", "")
+        self.time_period.configure(text=str(time_text))
+
+        self._show_toast(
+            title="Berhasil",
+            message=f"Data berhasil diambil dari {url}.",
+            bootstyle="success",
+            duration=3000,
+        )
+
+    def _get_url(self, link_up, date_entry, shift, functional_location="PACK") -> str:
+        """Helper method to generate URLs based on environment."""
+        if self.data_config.get("DEFAULT", "environment") == "production":
+            return get_url_period_loss_tree(
+                link_up, date_entry, shift, functional_location
+            )
+
+        elif self.data_config.get("DEFAULT", "environment") == "development":
+            # For development or testing environment, use local HTML files
+            return "http://127.0.0.1:5500/assets/spa3.html"
+            # return "http://127.0.0.1:5500/assets/no_pdt.html"
+
+        else:
+            self._show_toast(
+                title="Kesalahan",
+                message=f"Environment {self.data_config.get('DEFAULT', 'environment')} tidak diketahui. Silakan periksa konfigurasi.",
+                bootstyle="danger",
+                duration=3000,
+            )
+            return ""
 
     def _show_toast(self, **kwargs):
         if not self.winfo_exists():
@@ -257,22 +397,40 @@ class App(ttk.Window):
         self._cleanup_toasts()
         self.destroy()
 
-    def update_achievement_table(self, show_message: bool = False) -> bool:
+    def update_achievement_table(
+        self,
+        show_message: bool = False,
+        *,
+        target_data: Optional[pd.Series] = None,
+        actual_data: Optional[dict[str, object]] = None,
+    ) -> bool:
         shift_value = self.sidebar.select_shift.get()
         if not shift_value:
             if show_message:
-                messagebox.showwarning(
-                    "Peringatan", "Silakan pilih shift sebelum memperbarui target."
+                self._show_toast(
+                    title="Peringatan",
+                    message="Silakan pilih shift sebelum memperbarui target.",
+                    bootstyle="warning",
+                    duration=3000,
                 )
+                # messagebox.showwarning(
+                #     "Peringatan", "Silakan pilih shift sebelum memperbarui target."
+                # )
             return False
 
         lu_value = self.sidebar.lu.get().strip()
         if not lu_value:
             if show_message:
-                messagebox.showwarning(
-                    "Peringatan",
-                    "Silakan pilih Link Up sebelum memperbarui target.",
+                self._show_toast(
+                    title="Peringatan",
+                    message="Silakan pilih Link Up sebelum memperbarui target.",
+                    bootstyle="warning",
+                    duration=3000,
                 )
+                # messagebox.showwarning(
+                #     "Peringatan",
+                #     "Silakan pilih Link Up sebelum memperbarui target.",
+                # )
             return False
 
         func_location = self.sidebar.func_location.get()
@@ -281,36 +439,66 @@ class App(ttk.Window):
             shift_number = int(shift_value.split()[-1])
         except (ValueError, IndexError):
             if show_message:
-                messagebox.showerror(
-                    "Kesalahan",
-                    "Format shift tidak valid. Gunakan format 'Shift X'.",
+                self._show_toast(
+                    title="Kesalahan",
+                    message="Format shift tidak valid. Gunakan format 'Shift X'.",
+                    bootstyle="danger",
+                    duration=3000,
                 )
-            return False
-
-        try:
-            target_shift = load_target_shift(lu_value, func_location, shift_number)
-        except (FileNotFoundError, pd.errors.EmptyDataError):
-            if show_message:
-                messagebox.showerror(
-                    "Kesalahan",
-                    "Gagal membaca file target. Periksa konfigurasi Link Up/Function.",
-                )
-            return False
-        except KeyError as exc:
-            if show_message:
-                messagebox.showerror("Kesalahan", str(exc))
+                # messagebox.showerror(
+                #     "Kesalahan",
+                #     "Format shift tidak valid. Gunakan format 'Shift X'.",
+                # )
             return False
 
         metric_names = [row.values[0] for row in self.achieve_table.tablerows]
-        self.spa_scraper = SpaScraper("spa.html")
-        actual_values, actual_data = fetch_actual_metrics(
-            self.spa_scraper, metric_names
-        )
-        self.time_period.configure(text=actual_data.get("RANGE", ""))
+
+        target_series = target_data
+        if target_series is not None and not isinstance(target_series, pd.Series):
+            target_series = pd.Series(target_series)
+        if target_series is None:
+            try:
+                target_series = load_target_shift(lu_value, func_location, shift_number)
+            except (FileNotFoundError, pd.errors.EmptyDataError):
+                if show_message:
+                    self._show_toast(
+                        title="Kesalahan",
+                        message="Gagal membaca file target. Periksa konfigurasi Link Up/Function.",
+                        bootstyle="danger",
+                        duration=3000,
+                    )
+                return False
+            except KeyError as exc:
+                if show_message:
+                    self._show_toast(
+                        title="Kesalahan",
+                        message=str(exc),
+                        bootstyle="danger",
+                        duration=3000,
+                    )
+                return False
+
+        target_values = [
+            str(target_series.iloc[idx]) if idx < len(target_series) else ""
+            for idx in range(len(metric_names))
+        ]
+
+        if actual_data is None:
+            processed_cache = self.controller.get_cached_processed_data()
+            cached_losses = (
+                processed_cache.get("data_losses")
+                if processed_cache
+                else pd.DataFrame()
+            )
+            actual_source: pd.DataFrame | dict[str, object] = cached_losses
+        else:
+            actual_source = actual_data
+
+        actual_values, actual_info = fetch_actual_metrics(actual_source, metric_names)
 
         updates = compute_row_updates(
             self.achieve_table.tablerows,
-            target_shift.tolist(),
+            target_values,
             actual_values,
         )
 
@@ -320,9 +508,11 @@ class App(ttk.Window):
 
         if not updates:
             if show_message:
-                messagebox.showwarning(
-                    "Informasi",
-                    "Tidak ada baris target yang diperbarui. Pastikan CSV berisi data.",
+                self._show_toast(
+                    title="Informasi",
+                    message="Tidak ada baris target yang diperbarui. Pastikan CSV berisi data.",
+                    bootstyle="warning",
+                    duration=3000,
                 )
             return False
 
@@ -330,50 +520,140 @@ class App(ttk.Window):
             tuple(row.values) for row in self.achieve_table.tablerows
         ]
 
+        range_value = ""
+        if actual_info:
+            range_value = actual_info.get("RANGE") or actual_info.get("Time range", "")
+        range_text = str(range_value)
+        self.time_period.configure(text=range_text)
+
         if show_message:
-            messagebox.showinfo(
-                "Berhasil",
-                f"Target dan aktual shift {shift_number} berhasil diperbarui dari CSV dan SPA.",
+            self._show_toast(
+                title="Berhasil",
+                message=(
+                    f"Target dan aktual shift {shift_number} berhasil diperbarui.\n"
+                    f"Environment: {self.data_config.get('DEFAULT', 'environment')}"
+                ),
+                bootstyle="success",
+                duration=3000,
             )
+            # messagebox.showinfo(
+            #     "Berhasil",
+            #     f"Target dan aktual shift {shift_number} berhasil diperbarui dari CSV dan SPA.",
+            # )
 
         return True
 
     @async_handler
-    async def update_achievement_target_from_csv(self):
-        self.progressbar.start()
-        try:
-            label_text = (
-                f"{self.sidebar.lu.get()} {self.sidebar.func_location.get()}"
-            ).strip()
-            if label_text:
-                self.achievement_frame.configure(
-                    labelwidget=ttk.Label(
-                        self.header_frame,
-                        text=label_text,
-                        font=("sans-serif", 10, "bold"),
-                    ),
-                    style="warning.TLabelframe",
-                )
+    @with_button_state("btn_result")
+    @with_progressbar
+    async def refresh_achievement_table(self):
+        label_text = (
+            f"{self.sidebar.lu.get()} {self.sidebar.func_location.get()}"
+        ).strip()
+        if label_text:
+            self.achievement_frame.configure(
+                labelwidget=ttk.Label(
+                    self.header_frame,
+                    text=label_text,
+                    font=("sans-serif", 10, "bold"),
+                ),
+                style="warning.TLabelframe",
+            )
 
+        shift_value = self.sidebar.select_shift.get().strip("Shift ")
+        if not shift_value:
             self.update_achievement_table(show_message=True)
-        finally:
-            self.progressbar.stop()
+            return
 
-    @async_handler
-    async def save_data_cards_to_csv(self):
-        card_rows = build_card_rows(self.view.iter_card_data())
+        try:
+            shift_number = int(shift_value)
+        except ValueError:
+            self._show_toast(
+                title="Kesalahan",
+                message="Format shift tidak valid. Gunakan format 'Shift X'.",
+                bootstyle="danger",
+                duration=3000,
+            )
+            return
 
-        if not card_rows:
-            messagebox.showinfo(
-                "Data Kosong", "Tidak ada data card yang dapat disimpan ke CSV."
+        url = self._get_url(
+            self.sidebar.lu.get().strip("LU"),
+            self._get_selected_date(),
+            str(shift_number),
+            self.sidebar.func_location.get()[:4],
+        )
+
+        if not url:
+            return
+
+        try:
+            target_series = load_target_shift(
+                self.sidebar.lu.get().strip("LU"),
+                self.sidebar.func_location.get(),
+                shift_number,
+            )
+        except (FileNotFoundError, pd.errors.EmptyDataError):
+            self._show_toast(
+                title="Kesalahan",
+                message="Gagal membaca file target. Periksa konfigurasi Link Up/Function.",
+                bootstyle="danger",
+                duration=3000,
+            )
+            return
+        except KeyError as exc:
+            self._show_toast(
+                title="Kesalahan",
+                message=str(exc),
+                bootstyle="danger",
+                duration=3000,
             )
             return
 
         try:
-            file_path = append_cards_to_csv(card_rows)
+            processed = await self.controller.fetch_remote_issue_data(
+                url, use_cache=True
+            )
+        except ControllerError as exc:
+            self._show_toast(
+                title="Kesalahan",
+                message=str(exc),
+                bootstyle="danger",
+                duration=3000,
+            )
+            return
+        except httpx.HTTPError as exc:
+            self._show_toast(
+                title="HTTP Error",
+                message=self._format_http_error(exc, url),
+                bootstyle="danger",
+                duration=3000,
+            )
+            return
+
+        actual_df = processed.get("data_losses", pd.DataFrame())
+        actual_dict = self._extract_actual_record(actual_df)
+
+        self.update_achievement_table(
+            show_message=True,
+            target_data=target_series,
+            actual_data=actual_dict,
+        )
+
+    @async_handler
+    @with_button_state("btn_save")
+    @with_progressbar
+    async def save_data_cards_to_csv(self):
+        try:
+            file_path = self.controller.save_cards(self.view.iter_card_data())
         except Exception as exc:
             messagebox.showerror(
                 "Kesalahan", f"Gagal menyimpan data card ke CSV.\n{exc}"
+            )
+            return
+
+        if not file_path:
+            messagebox.showinfo(
+                "Data Kosong", "Tidak ada data card yang dapat disimpan ke CSV."
             )
             return
 

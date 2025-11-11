@@ -10,14 +10,3 @@ HEADERS = {
 USERNAME = "f-pmiidkraplu18"
 PASSWORD = "Sampoerna1"
 NTLM_AUTH = HttpNtlmAuth(username=USERNAME, password=PASSWORD)
-
-
-TABLE_HEAD = [
-    "Machine",
-    "Description",
-    "Stops",
-    "DT [min]",
-]
-
-GREEN = "🟢"
-RED = "🔴"

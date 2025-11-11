@@ -1,6 +1,7 @@
 import sys
 from configparser import ConfigParser
 from pathlib import Path
+from urllib.parse import urlencode
 
 import httpx
 import openpyxl
@@ -50,6 +51,35 @@ def get_url_period_equipment_data(link_up: str, date: str, shift: str) -> str:
         "db_ShiftEnd": shift,
     }
     return MAIN_URL + "&".join(f"{key}={value}" for key, value in params.items())
+
+
+def get_url_period_loss_tree(
+    link_up: str, date: str, shift: str = "", functional_location: str = "PACK"
+) -> str:
+    line_prefix = "PMID-SE-CP-L0" if link_up == "17" else "ID01-SE-CP-L0"
+    params = {
+        "table": "SPA_NormPeriodLossTree",
+        "act": "query",
+        "submit1": "Search",
+        "db_Line": f"{line_prefix}{link_up}",
+        "db_FunctionalLocation": f"{line_prefix}{link_up}-{functional_location}",
+        "db_SegmentDateMin": date,
+        "db_ShiftStart": shift,
+        "db_SegmentDateMax": date,
+        "db_ShiftEnd": shift,
+        "db_Normalize": 0,
+        "db_PeriodTime": 10080,
+        "s_PeriodTime": "",
+        "db_LongStopDetails": 3,
+        "db_ReasonCNT": 30,
+        "db_ReasonSort": "stop count",
+        "db_Language": "OEM",
+        "db_LineFailureAnalysis": "x",
+    }
+
+    """http://ots.app.pmi/db.aspx?table=SPA_NormPeriodLossTree&act=query&submit1=Search&db_Line=ID01-SE-CP-L021&db_FunctionalLocation=ID01-SE-CP-L021-MAKE&db_SegmentDateMin=2025-11-08&db_ShiftStart=&db_SegmentDateMax=&db_ShiftEnd=&db_Normalize=0&db_PeriodTime=10080&s_PeriodTime=&db_LongStopDetails=3&db_ReasonCNT=30&db_ReasonSort=stop+count&db_Language=OEM&db_LineFailureAnalysis=x"""
+
+    return MAIN_URL + urlencode(params, doseq=True)
 
 
 def get_url_norm_period_loss_tree(

@@ -1,4 +1,5 @@
 """Persistence helpers for issue cards."""
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -26,9 +27,11 @@ class CardRecord:
             issue=record.get("issue", ""),
             detail=record.get("detail", ""),
             action=record.get("action", ""),
-            saved_at=datetime.fromisoformat(record["saved_at"])
-            if record.get("saved_at")
-            else datetime.now(),
+            saved_at=(
+                datetime.fromisoformat(record["saved_at"])
+                if record.get("saved_at")
+                else datetime.now()
+            ),
         )
 
 
