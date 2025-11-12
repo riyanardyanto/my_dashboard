@@ -1,6 +1,6 @@
 import ttkbootstrap as ttk
 from PIL import Image, ImageTk, UnidentifiedImageError
-from ttkbootstrap.constants import SUCCESS, WARNING, PRIMARY, TOP, W, X, YES
+from ttkbootstrap.constants import SUCCESS, PRIMARY, TOP, W, X, YES
 from ttkbootstrap.tooltip import ToolTip
 from ttkwidgets.autocomplete import AutocompleteCombobox
 
@@ -23,7 +23,7 @@ class Sidebar(ttk.Frame):
         self._create_action_buttons()
 
         # Create username entry and save button
-        self._create_user_entry()
+        # self._create_user_entry()
 
         # Create a test button for debugging
         # self._create_test_button()
@@ -53,6 +53,17 @@ class Sidebar(ttk.Frame):
             cursor="hand2",
         )
         self.lu.pack(side=TOP, padx=10, pady=(5, 5))
+
+        # Link Up combobox
+        self.func_location = ttk.Combobox(
+            self,
+            bootstyle="success",
+            width=12,
+            cursor="hand2",
+            values=["PACKER", "MAKER"],
+        )
+        self.func_location.set("PACKER")
+        self.func_location.pack(side=TOP, padx=10, pady=(10, 5))
 
         # Date entry
         self.dt = ttk.DateEntry(
@@ -84,38 +95,47 @@ class Sidebar(ttk.Frame):
         self.btn_get_data = self._create_button(
             "Get Data", SUCCESS, "Get data stop reason from SPA"
         )
+        try:
+            sync_image = Image.open(resource_path("assets/sync.png")).resize(
+                (16, 16), Image.LANCZOS
+            )
+            sync_icon = ImageTk.PhotoImage(sync_image)
+            self.btn_get_data.configure(image=sync_icon, compound="left")
+            self.btn_get_data.image = sync_icon
+        except (FileNotFoundError, UnidentifiedImageError):
+            pass
         self.btn_get_data.pack(side=TOP, padx=10, pady=(5, 10))
 
-        # Link Up combobox
-        self.func_location = ttk.Combobox(
-            self,
-            bootstyle="success",
-            width=12,
-            cursor="hand2",
-            values=["PACKER", "MAKER"],
-        )
-        self.func_location.set("PACKER")
-        self.func_location.pack(side=TOP, padx=10, pady=(10, 5))
+        # # Link Up combobox
+        # self.func_location = ttk.Combobox(
+        #     self,
+        #     bootstyle="success",
+        #     width=12,
+        #     cursor="hand2",
+        #     values=["PACKER", "MAKER"],
+        # )
+        # self.func_location.set("PACKER")
+        # self.func_location.pack(side=TOP, padx=10, pady=(10, 5))
 
         # Result button
-        self.btn_result = self._create_button(
-            "Result", SUCCESS, "Show Target and Actual Result"
-        )
-        self.btn_result.pack(side=TOP, padx=10, pady=(5, 5))
+        # self.btn_result = self._create_button(
+        #     "Result", SUCCESS, "Show Target and Actual Result"
+        # )
+        # self.btn_result.pack(side=TOP, padx=10, pady=(5, 5))
 
-        self._add_separator()
+        # self._add_separator()
 
-        # QR Code button
-        self.btn_qr = self._create_button("QR Code", WARNING, "Generate QR Code")
-        self.btn_qr.pack(side=TOP, padx=10, pady=(5, 5))
+        # # QR Code button
+        # self.btn_qr = self._create_button("QR Code", WARNING, "Generate QR Code")
+        # self.btn_qr.pack(side=TOP, padx=10, pady=(5, 5))
 
-        # Update Target button
-        self.btn_target = self._create_button(
-            "Update Target", WARNING, "Open Target Editor"
-        )
-        self.btn_target.pack(side=TOP, padx=10, pady=(5, 5))
+        # # Update Target button
+        # self.btn_target = self._create_button(
+        #     "Update Target", WARNING, "Open Target Editor"
+        # )
+        # self.btn_target.pack(side=TOP, padx=10, pady=(5, 5))
 
-        self._add_separator()
+        # self._add_separator()
 
     def _create_user_entry(self):
         """Create username entry and save button."""

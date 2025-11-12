@@ -19,6 +19,10 @@ class CardRecord:
     detail: str
     action: str
     saved_at: datetime
+    user: str = ""
+    lu: str = ""
+    tanggal: str = ""
+    shift: str = ""
 
     @classmethod
     def from_dict(cls, record: dict[str, str]) -> "CardRecord":
@@ -32,10 +36,20 @@ class CardRecord:
                 if record.get("saved_at")
                 else datetime.now()
             ),
+            user=record.get("user", ""),
+            lu=record.get("lu", ""),
+            tanggal=record.get("tanggal", ""),
+            shift=record.get("shift", ""),
         )
 
 
-def build_card_rows(cards: Iterable[dict]) -> list[dict[str, str]]:
+def build_card_rows(
+    cards: Iterable[dict],
+    username: str = "",
+    lu: str = "",
+    tanggal: str = "",
+    shift: str = "",
+) -> list[dict[str, str]]:
     rows: list[dict[str, str]] = []
     for card_data in cards:
         if not card_data:
@@ -53,6 +67,10 @@ def build_card_rows(cards: Iterable[dict]) -> list[dict[str, str]]:
                         "detail": detail_text,
                         "action": action or "",
                         "saved_at": datetime.now().isoformat(timespec="seconds"),
+                        "user": username,
+                        "lu": lu,
+                        "tanggal": tanggal,
+                        "shift": shift,
                     }
                 )
     return rows

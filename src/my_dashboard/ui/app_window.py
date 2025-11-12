@@ -23,7 +23,7 @@ from my_dashboard.services.achievement_service import (
 from ..components.target_editor import TargetEditor
 
 from ..controllers import ControllerError, DashboardController
-from ..utils.csvhandle import get_targets_file_path
+from ..utils.csvhandle import get_targets_file_path, save_user
 from ..utils.helpers import get_url_period_loss_tree, read_config, resource_path
 from .dashboard_view import DashboardView
 from .decorators import with_button_state, with_progressbar
@@ -58,16 +58,14 @@ class App(ttk.Window):
         self.header_frame = self.view.header_frame
         self.check_table = self.view.check_table
 
-        self.view.configure_card_actions(
-            on_add_card=self.add_new_card,
-            on_show_cards=self.show_all_data,
-            on_clear_cards=self.clear_data_cards,
-        )
+        self.view.configure_card_actions(on_show_cards=self.show_all_data)
+        self.view.target_btn.configure(command=self.show_target_editor)
+        self.view.save_btn.configure(command=self.save_data_cards_to_csv)
 
-        self.sidebar.btn_target.configure(command=self.show_target_editor)
-        self.sidebar.btn_get_data.configure(command=self.get_data)
-        self.sidebar.btn_result.configure(command=self.refresh_achievement_table)
-        self.sidebar.btn_save.configure(command=self.save_data_cards_to_csv)
+        # self.sidebar.btn_target.configure(command=self.show_target_editor)
+        self.sidebar.btn_get_data.configure(command=self.get_data_and_update_tables)
+        # self.sidebar.btn_result.configure(command=self.refresh_achievement_table)
+        # self.sidebar.btn_save.configure(command=self.save_data_cards_to_csv)
 
         link_up_values = sorted(self.data_config.get("DEFAULT", "link_up").split(","))
         self.sidebar.lu.configure(values=link_up_values)
@@ -129,10 +127,10 @@ class App(ttk.Window):
         return f"{exc.__class__.__name__}: {exc}\nURL: {url}"
 
     def add_new_card(self, issue_text: Optional[str] = None):
-        return self.view.add_card(issue_text)
+        return self.view.card_frame.add_card(issue_text)
 
     def remove_card(self, card_id):
-        self.view.remove_card(card_id)
+        self.view.card_frame.remove_card(card_id)
 
     def on_table_double_click(self, event: tk.Event):
         row_id = event.widget.identify_row(event.y)
@@ -156,7 +154,13 @@ class App(ttk.Window):
         card_entries = self.view.get_card_entries()
 
         if not card_entries:
-            messagebox.showinfo("Data Kosong", "Tidak ada data card untuk ditampilkan.")
+            self._show_toast(
+                title="Data Kosong",
+                message="Tidak ada data card untuk ditampilkan.",
+                bootstyle="info",
+                duration=3000,
+            )
+            # messagebox.showinfo("Data Kosong", "Tidak ada data card untuk ditampilkan.")
             return
 
         if self.data_window and self.data_window.winfo_exists():
@@ -193,7 +197,8 @@ class App(ttk.Window):
                     data_table,
                     data_header,
                     tablefmt="pretty",
-                    stralign="center",
+                    stralign="left",
+                    numalign="left",
                 ).replace('\n','`\n`')}`"
                 + "\n",
             )
@@ -219,6 +224,141 @@ class App(ttk.Window):
         qr_label.pack(side="right", pady=10, padx=10, anchor="n")
 
         self.data_window.focus()
+
+    @async_handler
+    @with_button_state("btn_get_data")
+    @with_progressbar
+    async def get_data_and_update_tables(self):
+        """Fetch data from SPA and update both issue table and achievement table."""
+        # Get URL parameters
+        link_up = self.sidebar.lu.get().strip("LU")
+        date_entry = self._get_selected_date()
+        shift_value = self.sidebar.select_shift.get().strip("Shift ")
+        func_location = self.sidebar.func_location.get()[:4]
+
+        url = self._get_url(link_up, date_entry, shift_value, func_location)
+        if not url:
+            return
+
+        # Validate shift selection
+        if not shift_value:
+            self._show_toast(
+                title="Peringatan",
+                message="Silakan pilih shift terlebih dahulu.",
+                bootstyle="warning",
+                duration=3000,
+            )
+            return
+
+        try:
+            shift_number = int(shift_value)
+        except ValueError:
+            self._show_toast(
+                title="Kesalahan",
+                message="Format shift tidak valid.",
+                bootstyle="danger",
+                duration=3000,
+            )
+            return
+
+        # Fetch remote data
+        try:
+            processed = await self.controller.fetch_remote_issue_data(url)
+        except ControllerError as exc:
+            self._show_toast(
+                title="Kesalahan",
+                message=str(exc),
+                bootstyle="danger",
+                duration=3000,
+            )
+            return
+        except httpx.HTTPError as exc:
+            self._show_toast(
+                title="HTTP Error",
+                message=self._format_http_error(exc, url),
+                bootstyle="danger",
+                duration=3000,
+            )
+            return
+        except Exception as exc:
+            self._show_toast(
+                title="Kesalahan",
+                message=str(exc),
+                bootstyle="danger",
+                duration=3000,
+            )
+            return
+
+        stops_df = processed.get("stops_reason", pd.DataFrame())
+        data_losses_df = processed.get("data_losses", pd.DataFrame())
+
+        # Update issue table
+        self._populate_issue_table(stops_df)
+
+        # Extract actual data
+        actual_record = self._extract_actual_record(data_losses_df)
+        time_text = actual_record.get("RANGE") or actual_record.get("Time range", "")
+        self.time_period.configure(text=str(time_text))
+
+        # Update achievement frame label
+        label_text = (
+            f"{self.sidebar.lu.get()} {self.sidebar.func_location.get()}".strip()
+        )
+        if label_text:
+            self.achievement_frame.configure(
+                labelwidget=ttk.Label(
+                    self.header_frame,
+                    text=label_text,
+                    font=("sans-serif", 10, "bold"),
+                ),
+                style="warning.TLabelframe",
+            )
+
+        # Load target data
+        try:
+            target_series = load_target_shift(
+                self.sidebar.lu.get().strip("LU"),
+                self.sidebar.func_location.get(),
+                shift_number,
+            )
+        except (FileNotFoundError, pd.errors.EmptyDataError):
+            self._show_toast(
+                title="Kesalahan",
+                message="Gagal membaca file target. Periksa konfigurasi Link Up/Function.",
+                bootstyle="danger",
+                duration=3000,
+            )
+            return
+        except KeyError as exc:
+            self._show_toast(
+                title="Kesalahan",
+                message=str(exc),
+                bootstyle="danger",
+                duration=3000,
+            )
+            return
+        except Exception as exc:
+            self._show_toast(
+                title="Kesalahan",
+                message=str(exc),
+                bootstyle="danger",
+                duration=3000,
+            )
+            return
+
+        # Update achievement table
+        self.update_achievement_table(
+            show_message=False,
+            target_data=target_series,
+            actual_data=actual_record,
+        )
+
+        self._show_toast(
+            title="Berhasil",
+            message="Issue table dan achievement table berhasil diperbarui.",
+            bootstyle="success",
+            duration=3000,
+        )
 
     @async_handler
     @with_button_state("btn_get_data")
@@ -584,23 +724,59 @@ class App(ttk.Window):
     @with_button_state("btn_save")
     @with_progressbar
     async def save_data_cards_to_csv(self):
-        try:
-            file_path = self.controller.save_cards(self.view.iter_card_data())
-        except Exception as exc:
-            messagebox.showerror(
-                "Kesalahan", f"Gagal menyimpan data card ke CSV.\n{exc}"
+        # Validate username entry
+        username = self.view.entry_user.get().strip()
+        if not username:
+            self._show_toast(
+                title="Peringatan",
+                message="Silakan masukkan username terlebih dahulu.",
+                bootstyle="warning",
+                duration=3000,
             )
             return
+
+        # Get sidebar data
+        lu = self.sidebar.lu.get().strip()
+        tanggal = self._get_selected_date()
+        shift = self.sidebar.select_shift.get().strip()
+
+        # Save username to CSV
+        save_user(username)
+
+        try:
+            file_path = self.controller.save_cards(
+                self.view.iter_card_data(), username, lu, tanggal, shift
+            )
+
+            self._show_toast(
+                title="Berhasil",
+                message=f"Data card berhasil ditambahkan ke file:\n{file_path}",
+                bootstyle="success",
+                duration=3000,
+            )
+        except Exception as exc:
+            self._show_toast(
+                title="Kesalahan",
+                message=f"Gagal menyimpan data card ke CSV.\n{exc}",
+                bootstyle="danger",
+                duration=3000,
+            )
+            # messagebox.showerror(
+            #     "Kesalahan", f"Gagal menyimpan data card ke CSV.\n{exc}"
+            # )
+            # return
 
         if not file_path:
-            messagebox.showinfo(
-                "Data Kosong", "Tidak ada data card yang dapat disimpan ke CSV."
+            self._show_toast(
+                title="Data Kosong",
+                message="Tidak ada data card yang dapat disimpan ke CSV.",
+                bootstyle="info",
+                duration=3000,
             )
-            return
-
-        messagebox.showinfo(
-            "Berhasil", f"Data card berhasil ditambahkan ke file:\n{file_path}"
-        )
+            # messagebox.showinfo(
+            #     "Data Kosong", "Tidak ada data card yang dapat disimpan ke CSV."
+            # )
+            # return
 
     def clear_data_cards(self):
         if not self.view.cards:
@@ -620,9 +796,15 @@ class App(ttk.Window):
 
         lu_value = self.sidebar.lu.get()
         if not lu_value:
-            messagebox.showwarning(
-                "Peringatan", "Silakan pilih Link Up terlebih dahulu."
+            self._show_toast(
+                title="Peringatan",
+                message="Silakan pilih Link Up terlebih dahulu.",
+                bootstyle="warning",
+                duration=3000,
             )
+            # messagebox.showwarning(
+            #     "Peringatan", "Silakan pilih Link Up terlebih dahulu."
+            # )
             return
 
         func_location = self.sidebar.func_location.get()

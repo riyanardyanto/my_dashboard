@@ -2,15 +2,20 @@
 
 from __future__ import annotations
 
-from typing import Callable, Dict, Iterable, Optional
+from tkinter import TOP
+from typing import Callable, Iterable
 
 import ttkbootstrap as ttk
-from ttkbootstrap.scrolled import ScrolledFrame
+from PIL import Image, ImageTk, UnidentifiedImageError
 from ttkbootstrap.tableview import Tableview
+from ttkbootstrap.tooltip import ToolTip
+from ttkwidgets.autocomplete import AutocompleteCombobox
 
 from ..components.editble_tableview import EditableTableView
-from ..components.issue_card import IssueCard
+from ..components.issue_card import IssueCardFrame
 from ..components.sidebar import Sidebar
+from ..utils.csvhandle import load_users, save_user
+from ..utils.helpers import resource_path
 
 
 class DashboardView(ttk.Frame):
@@ -21,7 +26,7 @@ class DashboardView(ttk.Frame):
         self.pack(fill="both", expand=True)
 
         self.sidebar = Sidebar(self)
-        self.sidebar.pack(anchor="nw", side="left", fill="y")
+        self.sidebar.pack(anchor="nw", side="left", fill="none", expand=False)
 
         self.main_view = ttk.Frame(self)
         self.main_view.pack(anchor="nw", side="left", fill="both", expand=True)
@@ -118,12 +123,12 @@ class DashboardView(ttk.Frame):
             ("Aktual", "c"),
         ]
         rowdata = [
-            ("STOP", 3, 0),
-            ("PR", 85, 0),
-            ("MTBF", 150, 0),
-            ("UPDT", 4, 0),
-            ("PDT", 8, 0),
-            ("NATR", 4, 0),
+            ("STOP", 0, 0),
+            ("PR", 0, 0),
+            ("MTBF", 0, 0),
+            ("UPDT", 0, 0),
+            ("PDT", 0, 0),
+            ("NATR", 0, 0),
         ]
 
         self.achieve_table = EditableTableView(
@@ -143,113 +148,123 @@ class DashboardView(ttk.Frame):
         btn_frame = ttk.Frame(self.header_frame, padding=(4, 4, 0, 0))
         btn_frame.pack(side="right", fill="y")
 
+        self.target_btn = ttk.Button(
+            btn_frame,
+            text="Set Target",
+            width=12,
+            bootstyle="warning",
+        )
+        self.target_btn.pack(fill="x", pady=(0, 10))
+
+        ToolTip(self.target_btn, "Atur Target", delay=0, position="left")
+
+        try:
+            target_image = Image.open(resource_path("assets/target.png")).resize(
+                (16, 16), Image.LANCZOS
+            )
+            target_icon = ImageTk.PhotoImage(target_image)
+            self.target_btn.configure(image=target_icon, compound="left")
+            self.target_btn.image = target_icon
+        except (FileNotFoundError, UnidentifiedImageError):
+            pass
+
         self.show_cards_button = ttk.Button(
             btn_frame,
-            text="Tampilkan Data",
-            width=16,
+            text="Show Report",
+            width=12,
             bootstyle="primary",
         )
+
+        ToolTip(
+            self.show_cards_button,
+            "Tampilkan Laporan Issue Cards",
+            delay=0,
+            position="left",
+        )
+
+        try:
+            qr_image = Image.open(resource_path("assets/qrcode.png")).resize(
+                (16, 16), Image.LANCZOS
+            )
+            qr_icon = ImageTk.PhotoImage(qr_image)
+            self.show_cards_button.configure(image=qr_icon, compound="left")
+            self.show_cards_button.image = qr_icon
+        except (FileNotFoundError, UnidentifiedImageError):
+            pass
         self.show_cards_button.pack(fill="x", pady=(0, 10))
 
         self.check_table = ttk.Checkbutton(
             btn_frame,
-            text="Tampilkan Tabel",
-            width=16,
+            text="Show Table",
+            width=12,
             bootstyle="round-toggle",
         )
         self.check_table.pack(fill="x", pady=(0, 35))
 
-        self.clear_cards_button = ttk.Button(
+        self.entry_user = AutocompleteCombobox(
             btn_frame,
-            text="Clear Cards",
-            width=16,
-            bootstyle="danger",
+            width=15,
+            completevalues=load_users(),
+            cursor="hand2",
         )
-        self.clear_cards_button.pack(fill="x", pady=(0, 10))
+        self.entry_user.pack(side=TOP, pady=(0, 10))
+        self.entry_user.bind("<<ComboboxSelected>>", self._on_user_selected)
+        self.entry_user.bind("<Return>", self._on_user_entry)
+        self.entry_user.bind("<FocusOut>", self._on_user_entry)
+        ToolTip(self.entry_user, "Select Username", delay=0, position="left")
 
-        self.add_card_button = ttk.Button(
+        self.save_btn = ttk.Button(
             btn_frame,
-            text="+ Tambah Card",
-            width=16,
+            text="Save Data",
+            width=12,
             bootstyle="success",
         )
-        self.add_card_button.pack(fill="x", pady=(0, 10))
+        try:
+            excel_image = Image.open(resource_path("assets/excel.png")).resize(
+                (16, 16), Image.LANCZOS
+            )
+            excel_icon = ImageTk.PhotoImage(excel_image)
+            self.save_btn.configure(image=excel_icon, compound="left")
+            self.save_btn.image = excel_icon
+        except (FileNotFoundError, UnidentifiedImageError):
+            pass
+        self.save_btn.pack(fill="x", pady=(0, 10))
 
-        self.cards_header = ttk.Frame(self.right_frame, padding=(4, 10, 4, 6))
-        self.cards_header.pack(fill="x")
+        ToolTip(self.save_btn, "Simpan Data ke Excel", delay=0, position="left")
 
-        ttk.Label(
-            self.cards_header,
-            text="Issue Cards",
-            font=("Segoe UI", 12, "bold"),
-            bootstyle="inverse-primary",
-        ).pack(side="left")
+        self.card_frame = IssueCardFrame(self.right_frame)
+        self.card_frame.pack(fill="both", expand=True, pady=(8, 12))
 
-        self.cards_badge = ttk.Label(
-            self.cards_header,
-            text="0 Kartu",
-            # bootstyle="secondary",
-            padding=(8, 2),
-        )
-        self.cards_badge.pack(side="right")
+    # ------------------------------------------------------------------
+    # User entry event handlers ----------------------------------------
+    # ------------------------------------------------------------------
+    def _on_user_selected(self, event) -> None:
+        """Handle when user selects from dropdown."""
+        username = self.entry_user.get().strip()
+        if username:
+            save_user(username)
 
-        ttk.Separator(self.right_frame, orient="horizontal").pack(fill="x", padx=4)
-
-        self.scrollable = ScrolledFrame(self.right_frame, autohide=True, padding=(4, 0))
-        self.scrollable.pack(fill="both", expand=True, pady=(8, 12))
-        self.cards_container = self.scrollable
-        self.cards: Dict[str, IssueCard] = {}
-
-        # Ensure at least one empty card is visible
-        self.add_card()
+    def _on_user_entry(self, event) -> None:
+        """Handle when user types and commits (Enter or loses focus)."""
+        username = self.entry_user.get().strip()
+        if username:
+            save_user(username)
+            # Refresh autocomplete values
+            current_users = load_users()
+            self.entry_user.configure(completevalues=current_users)
 
     # ------------------------------------------------------------------
     # Public helpers ---------------------------------------------------
     # ------------------------------------------------------------------
-    def configure_card_actions(
-        self,
-        *,
-        on_add_card: Callable[[], None],
-        on_show_cards: Callable[[], None],
-        on_clear_cards: Callable[[], None],
-    ) -> None:
+    def configure_card_actions(self, *, on_show_cards: Callable[[], None]) -> None:
         """Attach callbacks to the card control buttons."""
 
-        self.add_card_button.configure(command=on_add_card)
         self.show_cards_button.configure(command=on_show_cards)
-        self.clear_cards_button.configure(command=on_clear_cards)
-
-    def add_card(self, issue_text: Optional[str] = None) -> IssueCard:
-        """Create a new issue card and register it in the view."""
-
-        card = IssueCard(self.cards_container, on_delete=self.remove_card)
-        card.pack(fill="x", pady=10, padx=5, ipadx=5, ipady=5)
-        self.cards[card.card_id] = card
-        if issue_text:
-            card.set_issue(issue_text)
-        card.issue_entry.focus_set()
-        self._update_card_badge()
-        return card
-
-    def remove_card(self, card_id: str) -> None:
-        """Remove a card reference once it is destroyed."""
-
-        if card_id in self.cards:
-            del self.cards[card_id]
-            self._update_card_badge()
-
-    def clear_cards(self) -> None:
-        """Delete all cards and leave a single empty card for the user."""
-
-        for card in list(self.cards.values()):
-            card.destroy()
-        self.cards.clear()
-        self.add_card()
 
     def iter_card_data(self) -> Iterable[dict]:
         """Yield the structured data for each populated card."""
 
-        for card in self.cards.values():
+        for card in self.card_frame.cards.values():
             data = card.get_data()
             if data:
                 yield data
@@ -258,8 +273,3 @@ class DashboardView(ttk.Frame):
         """Return a list with serialized card entries."""
 
         return list(self.iter_card_data())
-
-    def _update_card_badge(self) -> None:
-        count = len(self.cards)
-        label = "Kartu" if count == 1 else "Kartu"
-        self.cards_badge.configure(text=f"{count} {label}")

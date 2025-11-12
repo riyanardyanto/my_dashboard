@@ -42,7 +42,57 @@ def get_cards_file_path() -> str:
     filename = data_folder / "issue_cards.csv"
     if not filename.exists():
         pd.DataFrame(
-            columns=["card_id", "issue", "detail", "action", "saved_at"]
+            columns=[
+                "card_id",
+                "issue",
+                "detail",
+                "action",
+                "saved_at",
+                "user",
+                "lu",
+                "tanggal",
+                "shift",
+            ]
         ).to_csv(filename, index=False)
 
     return str(filename)
+
+
+def get_users_file_path() -> str:
+    """Get or create the users CSV file path."""
+    script_folder = Path(get_script_folder())
+    data_folder = script_folder / "data"
+    data_folder.mkdir(parents=True, exist_ok=True)
+
+    filename = data_folder / "users.csv"
+    if not filename.exists():
+        pd.DataFrame(columns=["username"]).to_csv(filename, index=False)
+
+    return str(filename)
+
+
+def load_users() -> list[str]:
+    """Load unique usernames from the users CSV file."""
+    try:
+        df = pd.read_csv(get_users_file_path())
+        return sorted(df["username"].dropna().unique().tolist())
+    except Exception:
+        return []
+
+
+def save_user(username: str) -> None:
+    """Append a new username to the users CSV if it doesn't exist."""
+    if not username or not username.strip():
+        return
+
+    username = username.strip()
+    filepath = get_users_file_path()
+
+    try:
+        df = pd.read_csv(filepath)
+        if username not in df["username"].values:
+            new_row = pd.DataFrame([{"username": username}])
+            df = pd.concat([df, new_row], ignore_index=True)
+            df.to_csv(filepath, index=False)
+    except Exception:
+        pass

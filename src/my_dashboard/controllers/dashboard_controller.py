@@ -39,7 +39,7 @@ class DashboardController:
             [Iterable, Sequence[str], Sequence[str]], list[tuple[object, tuple]]
         ] = compute_row_updates,
         card_row_builder: Callable[
-            [Iterable[dict]], list[dict[str, str]]
+            [Iterable[dict], str, str, str, str], list[dict[str, str]]
         ] = build_card_rows,
         card_persister: Callable[[list[dict[str, str]]], object] = append_cards_to_csv,
         request_headers: Optional[dict[str, str]] = None,
@@ -182,10 +182,17 @@ class DashboardController:
     # ------------------------------------------------------------------
     # Cards ------------------------------------------------------------
     # ------------------------------------------------------------------
-    def save_cards(self, cards: Iterable[dict]) -> Optional[object]:
+    def save_cards(
+        self,
+        cards: Iterable[dict],
+        username: str = "",
+        lu: str = "",
+        tanggal: str = "",
+        shift: str = "",
+    ) -> Optional[object]:
         """Persist card data and return the created file path."""
 
-        rows = self._build_card_rows(cards)
+        rows = self._build_card_rows(cards, username, lu, tanggal, shift)
         if not rows:
             return None
         return self._append_cards_to_csv(rows)
