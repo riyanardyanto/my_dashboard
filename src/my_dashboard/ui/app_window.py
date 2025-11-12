@@ -3,10 +3,8 @@
 from __future__ import annotations
 
 import tkinter as tk
-from tkinter import DISABLED, NORMAL, messagebox
+from tkinter import messagebox
 from typing import Optional, Set
-from functools import wraps
-from inspect import iscoroutinefunction
 
 import httpx
 import pandas as pd
@@ -28,80 +26,7 @@ from ..controllers import ControllerError, DashboardController
 from ..utils.csvhandle import get_targets_file_path
 from ..utils.helpers import get_url_period_loss_tree, read_config, resource_path
 from .dashboard_view import DashboardView
-
-
-def _resolve_button(instance, button_name):
-    sidebar = getattr(instance, "sidebar", None)
-    if sidebar and hasattr(sidebar, button_name):
-        return getattr(sidebar, button_name)
-    return getattr(instance, button_name, None)
-
-
-def with_progressbar(func):
-    """Decorator to automatically start/stop the window progressbar."""
-
-    if iscoroutinefunction(func):
-
-        @wraps(func)
-        async def async_wrapper(self, *args, **kwargs):
-            progressbar = getattr(self, "progressbar", None)
-            if progressbar:
-                progressbar.start()
-            try:
-                return await func(self, *args, **kwargs)
-            finally:
-                if progressbar:
-                    progressbar.stop()
-
-        return async_wrapper
-
-    @wraps(func)
-    def sync_wrapper(self, *args, **kwargs):
-        progressbar = getattr(self, "progressbar", None)
-        if progressbar:
-            progressbar.start()
-        try:
-            return func(self, *args, **kwargs)
-        finally:
-            if progressbar:
-                progressbar.stop()
-
-    return sync_wrapper
-
-
-def with_button_state(button_name: str):
-    """Decorator to disable/enable a button while a handler runs."""
-
-    def decorator(func):
-        if iscoroutinefunction(func):
-
-            @wraps(func)
-            async def async_wrapper(self, *args, **kwargs):
-                button = _resolve_button(self, button_name)
-                if button:
-                    button.configure(state=DISABLED)
-                try:
-                    return await func(self, *args, **kwargs)
-                finally:
-                    if button:
-                        button.configure(state=NORMAL)
-
-            return async_wrapper
-
-        @wraps(func)
-        def sync_wrapper(self, *args, **kwargs):
-            button = _resolve_button(self, button_name)
-            if button:
-                button.configure(state=DISABLED)
-            try:
-                return func(self, *args, **kwargs)
-            finally:
-                if button:
-                    button.configure(state=NORMAL)
-
-        return sync_wrapper
-
-    return decorator
+from .decorators import with_button_state, with_progressbar
 
 
 class App(ttk.Window):
@@ -327,6 +252,14 @@ class App(ttk.Window):
                 duration=3000,
             )
             return
+        except Exception as exc:
+            self._show_toast(
+                title="Kesalahan",
+                message=str(exc),
+                bootstyle="danger",
+                duration=3000,
+            )
+            return
 
         stops_df = processed.get("stops_reason", pd.DataFrame())
         data_losses_df = processed.get("data_losses", pd.DataFrame())
@@ -353,7 +286,7 @@ class App(ttk.Window):
 
         elif self.data_config.get("DEFAULT", "environment") == "development":
             # For development or testing environment, use local HTML files
-            return "http://127.0.0.1:5500/assets/spa3.html"
+            return "http://127.0.0.1:5500/assets/spa1.html"
             # return "http://127.0.0.1:5500/assets/no_pdt.html"
 
         else:
@@ -601,6 +534,14 @@ class App(ttk.Window):
             )
             return
         except KeyError as exc:
+            self._show_toast(
+                title="Kesalahan",
+                message=str(exc),
+                bootstyle="danger",
+                duration=3000,
+            )
+            return
+        except Exception as exc:
             self._show_toast(
                 title="Kesalahan",
                 message=str(exc),

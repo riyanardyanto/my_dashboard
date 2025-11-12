@@ -67,8 +67,8 @@ class HTMLTableExtractor:
         if not tables:
             raise ValueError("No tables found in the HTML content.")
 
-        # Replace empty strings with np.nan in all tables
-        self.tables = [table.replace("", np.nan) for table in tables]
+        # Replace empty strings and nbsp; with np.nan in all tables
+        self.tables = [table.replace({"": np.nan, "\xa0": np.nan}) for table in tables]
         return self.tables
 
 

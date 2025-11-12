@@ -39,13 +39,13 @@ class DashboardView(ttk.Frame):
             title_container,
             text="Issue Tracker Dashboard",
             font=("Segoe UI", 16, "bold"),
-            bootstyle="inverse-primary",
+            bootstyle="primary",
         ).pack(anchor="w")
         ttk.Label(
             title_container,
             text="Pantau downtime dan rencana perbaikan secara real-time",
-            bootstyle="success",
-        ).pack(anchor="w", pady=(2, 0))
+            # bootstyle="success",
+        ).pack(anchor="w", pady=(0, 0))
 
         status_container = ttk.Frame(self.header_top)
         status_container.grid(row=0, column=1, sticky="e", padx=(15, 0))
@@ -63,7 +63,7 @@ class DashboardView(ttk.Frame):
             status_container,
             mode="indeterminate",
             style="success.Striped.Horizontal.TProgressbar",
-            length=220,
+            length=450,
         )
         self.progressbar.pack(fill="x", pady=(6, 0))
 
